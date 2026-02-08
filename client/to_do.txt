@@ -1,0 +1,1 @@
+create a front page with basic info and the option to upload a img of a plant
