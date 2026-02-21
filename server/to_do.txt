@@ -1,3 +1,0 @@
-analyze the image from the front-end and identify the plant
-identify the desises
-recommend a treatment for plants
