@@ -2,14 +2,14 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow.keras.applications import MobileNetV2
 import os
-from config import BATCH_SIZE, IMAGE_SIZE, tomato_classes
+from server.model_config import BATCH_SIZE, IMAGE_SIZE, training_model_list, training_model_name
 
 dataset_path = "data/plantvillage_dataset/"
 
 # Load Dataset with Memory Optimizations
 train_ds = tf.keras.utils.image_dataset_from_directory(
     dataset_path,
-    class_names = tomato_classes,
+    class_names = training_model_list,
     validation_split=0.2,
     subset="training",
     seed=123,
@@ -19,7 +19,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
     dataset_path,
-    class_names = tomato_classes,
+    class_names = training_model_list,
     validation_split=0.2,
     subset="validation",
     seed=123,
@@ -50,6 +50,4 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 model.fit(train_ds, validation_data=val_ds, epochs=5)
 
 # Save the Model
-if not os.path.exists('server'):
-    os.makedirs('server')
-model.save("server/tomato_model.h5")
+model.save(f"server/{training_model_name}.h5")
