@@ -1,6 +1,7 @@
 BATCH_SIZE = 8 
 IMAGE_SIZE = (224, 224)
 
+
 master_classes = [
     'color/Apple___healthy',
     'color/Tomato___healthy',
@@ -20,3 +21,6 @@ tomato_classes = [
 ]
 
 apple_class = []
+
+training_model_list = tomato_classes
+training_model_name = "tomato_model"
