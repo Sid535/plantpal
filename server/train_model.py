@@ -2,9 +2,10 @@ import tensorflow as tf
 from tensorflow.keras import layers, models
 from tensorflow.keras.applications import MobileNetV2
 import os
-from server.model_config import BATCH_SIZE, IMAGE_SIZE, training_model_list, training_model_name
+from model_config import BATCH_SIZE, IMAGE_SIZE, training_model_list, training_model_name
 
-dataset_path = "data/plantvillage_dataset/"
+# use data/plantvillage_dataset/greyscale or data/plantvillage_dataset/segmented for diffrent
+dataset_path = "data/plantvillage_dataset/color"
 
 # Load Dataset with Memory Optimizations
 train_ds = tf.keras.utils.image_dataset_from_directory(
@@ -50,4 +51,4 @@ model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=
 model.fit(train_ds, validation_data=val_ds, epochs=5)
 
 # Save the Model
-model.save(f"server/{training_model_name}.h5")
+model.save(f"server/models/{training_model_name}.h5")
