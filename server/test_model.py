@@ -5,9 +5,9 @@ import os
 from model_config import IMAGE_SIZE, training_model_list
 
 # 1. Path setup
-model_path = "server/models/tomato_model.keras"
+model_path = "server/models/apple_model.keras"
 # Update this to the actual image you want to test
-test_image_path = "test_data/tomato/early_blight_test.jpg" 
+test_image_path = "test_data/apple/cedar_apple_rust.jpg" 
 
 if not os.path.exists(test_image_path):
     print(f"Error: File not found at {test_image_path}")

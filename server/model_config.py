@@ -20,7 +20,16 @@ tomato_classes = [
     'Tomato___Tomato_mosaic_virus',
 ]
 
-apple_class = []
+apple_class = [
+    'Apple___Apple_scab',
+    'Apple___Black_rot',
+    'Apple___Cedar_apple_rust',
+    'Apple___healthy'
+]
 
-training_model_list = tomato_classes
-training_model_name = "tomato_model"
+corn_class = []
+
+potato_class = []
+
+training_model_list = apple_class
+training_model_name = "apple_model"

@@ -6,9 +6,9 @@ from model_config import BATCH_SIZE, IMAGE_SIZE, training_model_list, training_m
 
 # --- SAFETY: Prevent System Lockup ---
 # Limits TensorFlow to only use 2 CPU cores so OS stays responsive
-tf.config.threading.set_intra_op_parallelism_threads(2)
-tf.config.threading.set_inter_op_parallelism_threads(2)
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+tf.config.threading.set_intra_op_parallelism_threads(3)
+tf.config.threading.set_inter_op_parallelism_threads(3)
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # use data/plantvillage_dataset/greyscale or data/plantvillage_dataset/segmented for diffrent
 dataset_path = "data/plantvillage_dataset/color"
