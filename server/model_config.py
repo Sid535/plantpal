@@ -27,9 +27,14 @@ apple_class = [
     'Apple___healthy'
 ]
 
-corn_class = []
+corn_class = [
+    "Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot",
+    "Corn_(maize)___Common_rust_",
+    "Corn_(maize)___healthy",
+    "Corn_(maize)___Northern_Leaf_Blight"
+]
 
 potato_class = []
 
-training_model_list = apple_class
-training_model_name = "apple_model"
+training_model_list = corn_class
+training_model_name = "corn_model"
