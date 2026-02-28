@@ -1,6 +1,6 @@
 import tensorflow as tf
-from tensorflow.keras import layers, models
-from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras import layers, models # type: ignore
+from tensorflow.keras.applications import MobileNetV2 # type: ignore
 import os
 from model_config import BATCH_SIZE, IMAGE_SIZE, training_model_list, training_model_name
 

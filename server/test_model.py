@@ -1,13 +1,13 @@
 import tensorflow as tf
 import numpy as np
-from tensorflow.keras.preprocessing import image
+from tensorflow.keras.preprocessing import image # type: ignore
 import os
 from model_config import IMAGE_SIZE, training_model_list
 
 # 1. Path setup
-model_path = "server/models/apple_model.keras"
+model_path = "server/models/corn_model.keras"
 # Update this to the actual image you want to test
-test_image_path = "test_data/apple/cedar_apple_rust.jpg" 
+test_image_path = "server/test_data/corn/Corn_(maize)___Northern_Leaf_Blight.jpg"
 
 if not os.path.exists(test_image_path):
     print(f"Error: File not found at {test_image_path}")

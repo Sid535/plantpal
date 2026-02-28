@@ -11,3 +11,5 @@ wheels/
 
 # Datasets
 data/plantvillage_dataset
+
+server/test_data
