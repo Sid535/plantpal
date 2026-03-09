@@ -2,5 +2,6 @@ MINI PROJECT GROUP A12
 
 run in terminal
 
-cd plantpal \n
+cd plantpal 
+
 uv run main.py
