@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 from server.model_config import apple_class, corn_class, tomato_classes, IMAGE_SIZE
+from server.treatments import TREATMENT_MAP
 
 PLANT_MODELS = {
     "Apple": {"path": "server/models/apple_model.keras", "classes": apple_class},
@@ -28,10 +29,12 @@ def analyze_plant_image(image_file, plant_type):
         # Formatting result (e.g. "Tomato___Late_blight" -> "Late blight")
         parts = full_label.split("___")
         condition = parts[1].replace("_", " ") if len(parts) > 1 else "Unknown"
+        
+        treatment = TREATMENT_MAP.get(condition, TREATMENT_MAP["Unknown"])
 
         return {
             "plant_name": plant_type,
             "condition": condition,
-            "treatment": "Follow standard organic or chemical treatment based on local guidelines."
+            "treatment": treatment
         }
     return None
