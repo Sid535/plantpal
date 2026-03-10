@@ -7,7 +7,7 @@ master_classes = [
     'Tomato___healthy',
 ]
 
-tomato_classes = [
+tomato_class = [
     'Tomato___Bacterial_spot',
     'Tomato___Early_blight',
     'Tomato___healthy',
@@ -36,5 +36,5 @@ corn_class = [
 
 potato_class = []
 
-training_model_list = corn_class
-training_model_name = "corn_model"
+training_model_list = tomato_class
+training_model_name = "tomato_model"

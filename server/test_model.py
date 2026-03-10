@@ -4,43 +4,60 @@ from tensorflow.keras.preprocessing import image # type: ignore
 import os
 from model_config import IMAGE_SIZE, training_model_list
 
-# 1. Path setup
-model_path = "server/models/corn_model.keras"
-# Update this to the actual image you want to test
-test_image_path = "server/test_data/corn/Corn_(maize)___Northern_Leaf_Blight.jpg"
+# Model Path
+model_path = "server/models/tomato_model.keras"
+#directory containing your test images
+test_dir_path = "server/test_data/tomato/"
 
-if not os.path.exists(test_image_path):
-    print(f"Error: File not found at {test_image_path}")
+if not os.path.exists(test_dir_path):
+    print(f"Error: Directory not found at {test_dir_path}")
 else:
-    # 2. Load the model (Keras format handles architecture + weights)
+    # Load the model once
     print("Loading Fine-Tuned Model...")
     model = tf.keras.models.load_model(model_path)
-
-    # 3. Preprocess the image
-    img = image.load_img(test_image_path, target_size=IMAGE_SIZE)
-    img_array = image.img_to_array(img)
-    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
-
-    # Note: Our model has a layers.Rescaling(1./127.5, offset=-1) built-in,
-    # so we don't need to manually divide by 255 here.
-
-    # 4. Predict
-    print("Analyzing image...")
-    predictions = model.predict(img_array)
     
-    # 5. Output Result
-    class_idx = np.argmax(predictions[0])
-    confidence = 100 * np.max(predictions[0])
+    # Get list of all image files in the directory
+    image_files = [f for f in os.listdir(test_dir_path) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
     
-    # Get the predicted label
-    result_label = training_model_list[class_idx]
+    if not image_files:
+        print(f"No images found in {test_dir_path}")
+    else:
+        print(f"Found {len(image_files)} images. Starting batch analysis...\n")
+        
+        # Track statistics for professional benchmarking
+        correct_count = 0
+        total_confidence = 0
 
-    print("\n" + "="*30)
-    print(f"RESULT: {result_label}")
-    print(f"CONFIDENCE: {confidence:.2f}%")
-    print("="*30)
+        # 3. Loop through every image in the directory
+        for img_name in image_files:
+            img_path = os.path.join(test_dir_path, img_name)
+            
+            # Preprocess the image
+            img = image.load_img(img_path, target_size=IMAGE_SIZE)
+            img_array = image.img_to_array(img)
+            img_array = np.expand_dims(img_array, axis=0)
 
-    # Troubleshooting check
-    if confidence < 70:
-        print("\nNote: Low confidence. The model might need more diverse training data")
-        print("or the image might have lighting/angle issues.")
+            # 4. Predict
+            predictions = model.predict(img_array, verbose=0)
+            
+            # 5. Output Result
+            class_idx = np.argmax(predictions[0])
+            confidence = 100 * np.max(predictions[0])
+            result_label = training_model_list[class_idx]
+            
+            total_confidence += confidence
+
+            print(f"File: {img_name}")
+            print(f"Prediction: {result_label} ({confidence:.2f}%)")
+            
+            if confidence < 70:
+                print("--> WARNING: Low confidence result.")
+            print("-" * 20)
+
+        # 6. Final Benchmark Summary
+        avg_confidence = total_confidence / len(image_files)
+        print("\n" + "="*30)
+        print("BATCH TEST SUMMARY")
+        print(f"Total Images Tested: {len(image_files)}")
+        print(f"Average Confidence: {avg_confidence:.2f}%")
+        print("="*30)
