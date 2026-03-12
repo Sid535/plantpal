@@ -1,6 +1,27 @@
 BATCH_SIZE = 8
 IMAGE_SIZE = (224, 224)
 
+# --- HARDWARE & SYSTEM CONFIG ---
+BATCH_SIZE = 8
+CPU_THREADS = 3         # Limits TensorFlow threads to prevent OS lockups
+SHUFFLE_BUFFER = 500    # Keeps RAM usage low during dataset shuffling
+SEED = 123              # Ensures reproducibility across different training runs
+
+# --- IMAGE & DATASET CONFIG ---
+IMAGE_SIZE = (224, 224)
+IMAGE_CHANNELS = 3
+VALIDATION_SPLIT = 0.2  # Reserves 20% of data for the val/test pool
+ROTATION_FACTOR = 0.2   # Range for random image rotation during augmentation
+DROPOUT_RATE = 0.3      # Drops 30% of connections to prevent overfitting
+
+# --- TRAINING HYPERPARAMETERS ---
+PHASE_1_EPOCHS = 3
+PHASE_2_EPOCHS = 10
+FINE_TUNE_LAYERS = 20   # Number of base model layers to unfreeze
+FINE_TUNE_LR = 1e-5     # Low learning rate prevents destroying pre-trained weights
+EARLY_STOP_PATIENCE = 3 # Halts training if val_loss stops improving
+BRIGHTNESS_FACTOR = 0.2
+CONTRAST_FACTOR = 0.2
 
 master_classes = [
     'Apple___healthy',
