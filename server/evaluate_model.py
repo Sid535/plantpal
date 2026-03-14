@@ -27,7 +27,6 @@ val_test_pool = tf.keras.utils.image_dataset_from_directory(
     seed=SEED,
     image_size=IMAGE_SIZE,
     batch_size=BATCH_SIZE,
-    shuffle=False 
 )
 
 # Skip the validation half to get the test half
@@ -77,7 +76,7 @@ plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
 
 # Save the plot as a PNG image
-plot_path = f"server/models/{training_model_name}_confusion_matrix.png"
+plot_path = f"server/models/confusion_matrix/{training_model_name}_confusion_matrix.png"
 plt.savefig(plot_path, dpi=300)
 
 print(f"SUCCESS! Confusion matrix saved to: {plot_path}")
