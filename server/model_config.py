@@ -57,5 +57,5 @@ corn_class = [
 
 potato_class = []
 
-training_model_list = tomato_class
-training_model_name = "tomato_model_v2"
+training_model_list = apple_class
+training_model_name = "apple_model_v2"

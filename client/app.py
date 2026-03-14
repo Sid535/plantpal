@@ -62,7 +62,7 @@ def run_client():
             st.image(
                 uploaded_file, 
                 caption='Uploaded Leaf Sample', 
-                use_container_width=True
+                width='stretch'
             )
         
         with col2:
@@ -81,8 +81,10 @@ def run_client():
                     condition_color = "red" if "healthy" not in results['condition'].lower() else "green"
                     st.markdown(f"**Health Status:** :{condition_color}[{results['condition']}]")
                     
+                    st.metric("Confidence", f"{results['confidence']:.1f}%")
+                    
                     st.markdown("---")
-                    st.markdown("** Recommended Treatment:**")
+                    st.markdown("**Recommended Treatment:**")
                     st.write(results['treatment'])
                 else:
                     st.error("Model Error: Could not process the image.")
