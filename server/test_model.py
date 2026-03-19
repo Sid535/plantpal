@@ -1,6 +1,5 @@
 import tensorflow as tf
 import numpy as np
-import argparse
 import sys
 import os
 from PIL import Image
@@ -8,15 +7,14 @@ from pathlib import Path
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-from server.model_config import IMAGE_SIZE, PLANT_CONFIG, MODEL_PATHS
+from server.model_config import IMAGE_SIZE, ALL_CLASSES, MODEL_PATHS
 
-def test(plant: str):
-    config = PLANT_CONFIG[plant]
-    training_model_list = config["classes"]
-    model_path = MODEL_PATHS[plant]
+def test():
+    training_model_list = ALL_CLASSES
+    model_path = MODEL_PATHS["plantpal"]
     
     ROOT = Path(__file__).resolve().parent.parent
-    test_dir_path = str(ROOT / "server" / "test_data" / plant)
+    test_dir_path = str(ROOT / "server" / "test_data")
 
     if not os.path.exists(test_dir_path):
         print(f"Error: Directory not found at {test_dir_path}")
@@ -67,12 +65,4 @@ def test(plant: str):
     print("="*30)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Batch test a PlantPal model")
-    parser.add_argument(
-        "--plant",
-        required=True,
-        choices=PLANT_CONFIG.keys(),
-        help="Which plant model to test"
-    )
-    args = parser.parse_args()
-    test(args.plant)
+    test()

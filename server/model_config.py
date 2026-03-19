@@ -1,29 +1,24 @@
 # --- HARDWARE & SYSTEM CONFIG ---
-BATCH_SIZE = 8
-CPU_THREADS = 3         # Limits TensorFlow threads to prevent OS lockups
-SHUFFLE_BUFFER = 500    # Keeps RAM usage low during dataset shuffling
-SEED = 123              # Ensures reproducibility across different training runs
+BATCH_SIZE = 32 # 32 for colab, 8 for local
+CPU_THREADS = 8 # 8 for colob, 3 for local
+SHUFFLE_BUFFER = 500
+SEED = 123
 
 # --- IMAGE & DATASET CONFIG ---
 IMAGE_SIZE = (224, 224)
 IMAGE_CHANNELS = 3
-VALIDATION_SPLIT = 0.2  # Reserves 20% of data for the val/test pool
-ROTATION_FACTOR = 0.2   # Range for random image rotation during augmentation
-DROPOUT_RATE = 0.3      # Drops 30% of connections to prevent overfitting
+VALIDATION_SPLIT = 0.2 
+ROTATION_FACTOR = 0.2
+DROPOUT_RATE = 0.3
 
 # --- TRAINING HYPERPARAMETERS ---
 PHASE_1_EPOCHS = 3
 PHASE_2_EPOCHS = 30
-FINE_TUNE_LAYERS = 20   # Number of base model layers to unfreeze
-FINE_TUNE_LR = 1e-5     # Low learning rate prevents destroying pre-trained weights
-EARLY_STOP_PATIENCE = 3 # Halts training if val_loss stops improving
+FINE_TUNE_LAYERS = 20
+FINE_TUNE_LR = 1e-5
+EARLY_STOP_PATIENCE = 3
 BRIGHTNESS_FACTOR = 0.2
 CONTRAST_FACTOR = 0.2
-
-master_classes = [
-    'Apple___healthy',
-    'Tomato___healthy',
-]
 
 tomato_class = [
     'Tomato___Bacterial_spot',
@@ -54,22 +49,19 @@ corn_class = [
 
 potato_class = []
 
+ALL_CLASSES = [
+    *apple_class,
+    *corn_class,
+    *tomato_class,
+]
+
+
 PLANT_CONFIG = {
-    "apple": {
-        "classes": apple_class,
-        "model_name": "apple_model"
-    },
-    "corn": {
-        "classes": corn_class,
-        "model_name": "corn_model"
-    },
-    "tomato": {
-        "classes": tomato_class,
-        "model_name": "tomato_model"
-    },
+    "apple": {"classes": apple_class},
+    "corn":  {"classes": corn_class},
+    "tomato": {"classes": tomato_class},
 }
 
 MODEL_PATHS = {
-    plant: f"server/models/{config['model_name']}.keras"
-    for plant, config in PLANT_CONFIG.items()
+    "plantpal": "server/models/plantpal_model.keras"
 }

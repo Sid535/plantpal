@@ -98,7 +98,7 @@ def generate_sample_grid():
     plt.suptitle('Random Samples from the Dataset', fontsize=16)
     plt.tight_layout()
     
-    save_path = str(ROOT / "server" / "reports" / "dataset_distribution.png")
+    save_path = str(ROOT / "server" / "reports" / "dataset_samples.png")
     plt.savefig(save_path, dpi=300)
     print(f"Sample grid saved successfully to: {save_path}")
 
