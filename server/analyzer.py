@@ -7,13 +7,15 @@ import numpy as np
 from PIL import Image
 from functools import lru_cache
 
-from server.model_config import apple_class, corn_class, tomato_class, IMAGE_SIZE
+from server.model_config import IMAGE_SIZE, PLANT_CONFIG, MODEL_PATHS
 from server.treatments import TREATMENT_MAP
 
 PLANT_MODELS = {
-    "Apple": {"path": "server/models/apple_model.keras", "classes": apple_class},
-    "Corn": {"path": "server/models/corn_model.keras", "classes": corn_class},
-    "Tomato": {"path": "server/models/tomato_model_v2.keras", "classes": tomato_class}
+    plant.capitalize(): {
+        "path": MODEL_PATHS[plant],
+        "classes": PLANT_CONFIG[plant]["classes"]
+    }
+    for plant in PLANT_CONFIG
 }
 
 @lru_cache(maxsize=3)

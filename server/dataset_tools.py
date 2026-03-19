@@ -3,8 +3,10 @@ import random
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
+from pathlib import Path
 
-dataset_path = "data/plantvillage_dataset/color"
+ROOT = Path(__file__).resolve().parent.parent
+dataset_path = str(ROOT / "data" / "plantvillage_dataset" / "color")
 
 def clean_dataset():
     print("=== Phase 1: Scanning for Corrupted Images ===")
@@ -61,7 +63,7 @@ def visualize_distribution():
     plt.xticks(rotation=45, ha='right', fontsize=10)
     plt.title('PlantVillage Dataset: Image Distribution per Disease', fontsize=16)
     plt.ylabel('Number of Images', fontsize=12)
-    plt.xlabel('Tomato Class', fontsize=12)
+    plt.xlabel('Disease Class', fontsize=12)
     plt.tight_layout()
 
     # Add the exact numbers on top of the bars
@@ -69,7 +71,7 @@ def visualize_distribution():
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width()/2, yval + 10, int(yval), ha='center', va='bottom', fontsize=9)
 
-    save_path = "server/reports/dataset_distribution.png"
+    save_path = str(ROOT / "server" / "reports" / "dataset_distribution.png")
     plt.savefig(save_path, dpi=300)
     print(f"Chart saved successfully to: {save_path}")
 
@@ -96,7 +98,7 @@ def generate_sample_grid():
     plt.suptitle('Random Samples from the Dataset', fontsize=16)
     plt.tight_layout()
     
-    save_path = "server/reports/dataset_samples.png"
+    save_path = str(ROOT / "server" / "reports" / "dataset_distribution.png")
     plt.savefig(save_path, dpi=300)
     print(f"Sample grid saved successfully to: {save_path}")
 

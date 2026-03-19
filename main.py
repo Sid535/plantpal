@@ -1,6 +1,5 @@
 import subprocess
 import sys
-import os
 
 def main():
     print("Launching PlantPal Client...")
@@ -11,8 +10,9 @@ def main():
         process.wait()
     except KeyboardInterrupt:
         process.terminate()
+        process.wait()
         print("\nStopping PlantPal...")
-        os._exit(0)
+        sys.exit(0)
 
 if __name__ == "__main__":
     main()

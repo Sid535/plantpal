@@ -7,7 +7,7 @@ TOMATO_TREATMENTS = {
     "Septoria leaf spot": "Remove lower infected leaves and apply organic fungicides.",
     "Spider mites Two-spotted spider mite": "Use neem oil or insecticidal soap; increase humidity.",
     "Target Spot": "Improve air circulation and keep foliage dry.",
-    "Yellow Leaf Curl Virus": "Control whiteflies and remove infected plants.",
+    "Tomato Yellow Leaf Curl Virus": "Control whiteflies and remove infected plants.",
     "Tomato mosaic virus": "Remove infected plants; sanitize tools after use."
 }
 
