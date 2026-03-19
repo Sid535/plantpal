@@ -1,4 +1,3 @@
-import argparse
 import tensorflow as tf
 from tensorflow.keras import layers, models # type: ignore
 from tensorflow.keras.applications import MobileNetV2 # type: ignore
@@ -10,18 +9,17 @@ from server.model_config import (
     SHUFFLE_BUFFER, SEED, VALIDATION_SPLIT, ROTATION_FACTOR, 
     DROPOUT_RATE, PHASE_1_EPOCHS, PHASE_2_EPOCHS, FINE_TUNE_LAYERS, 
     FINE_TUNE_LR, EARLY_STOP_PATIENCE, BRIGHTNESS_FACTOR, CONTRAST_FACTOR, 
-    PLANT_CONFIG
+    ALL_CLASSES, MODEL_PATHS
 )
 
 tf.config.threading.set_intra_op_parallelism_threads(CPU_THREADS)
 tf.config.threading.set_inter_op_parallelism_threads(CPU_THREADS)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-def train(plant: str):
-    config = PLANT_CONFIG[plant]
-    training_model_list = config["classes"]
-    training_model_name = config["model_name"]
-    
+def train():
+    training_model_list = ALL_CLASSES  # 3. use ALL_CLASSES directly
+    model_save_path = str(Path(__file__).resolve().parent.parent / "server" / "models" / "plantpal_model.keras")  # 4. single fixed path
+
     ROOT = Path(__file__).resolve().parent.parent
     dataset_path = str(ROOT / "data" / "plantvillage_dataset" / "color")
 
@@ -64,16 +62,11 @@ def train(plant: str):
     class_weights = {}
 
     for i, count in enumerate(class_counts):
-        if count > 0:
-            weight = total_images / (num_classes * count)
-            class_weights[i] = weight
-        else:
-            class_weights[i] = 1.0
+        class_weights[i] = total_images / (num_classes * count) if count > 0 else 1.0
 
     print(f"\nComputed Class Weights: {class_weights}\n")
 
     AUTOTUNE = tf.data.AUTOTUNE
-
     train_ds = raw_train_ds.shuffle(SHUFFLE_BUFFER).prefetch(buffer_size=AUTOTUNE)
     val_ds = raw_val_ds.prefetch(buffer_size=AUTOTUNE)
     test_ds = raw_test_ds.prefetch(buffer_size=AUTOTUNE)
@@ -87,7 +80,6 @@ def train(plant: str):
         layers.RandomRotation(ROTATION_FACTOR),
         layers.RandomBrightness(factor=BRIGHTNESS_FACTOR),
         layers.RandomContrast(factor=CONTRAST_FACTOR),
-        # Note: 1./127.5, offset=-1 scales pixels to [-1, 1] specifically for MobileNetV2
         layers.Rescaling(1./127.5, offset=-1),
         base_model,
         layers.GlobalAveragePooling2D(),
@@ -100,6 +92,7 @@ def train(plant: str):
         loss='sparse_categorical_crossentropy',
         metrics=['accuracy']
     )
+    
     print("Phase 1: Training the Head...")
     model.fit(
         train_ds,
@@ -120,13 +113,13 @@ def train(plant: str):
     )
 
     early_stop = tf.keras.callbacks.EarlyStopping(
-        monitor='val_loss', 
-        patience=EARLY_STOP_PATIENCE, 
+        monitor='val_loss',
+        patience=EARLY_STOP_PATIENCE,
         restore_best_weights=True
     )
 
     checkpoint = tf.keras.callbacks.ModelCheckpoint(
-        filepath=str(ROOT / "server" / "models" / f"{training_model_name}.keras"),
+        filepath=model_save_path,
         monitor='val_loss',
         save_best_only=True,
         verbose=1
@@ -149,19 +142,10 @@ def train(plant: str):
     )
 
     print("\n=== Evaluating on Unseen Test Data ===")
-    best_model = tf.keras.models.load_model(f"server/models/{training_model_name}.keras")
-
+    best_model = tf.keras.models.load_model(model_save_path)
     loss, accuracy = best_model.evaluate(test_ds)
     print(f"Test Loss: {loss:.4f}")
     print(f"Test Accuracy: {(accuracy * 100):.2f}%")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Train a PlantPal disease classifier")
-    parser.add_argument(
-        "--plant",
-        required=True,
-        choices=PLANT_CONFIG.keys(),
-        help="Which plant model to train"
-    )
-    args = parser.parse_args()
-    train(args.plant)
+    train()
