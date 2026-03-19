@@ -1,6 +1,3 @@
-BATCH_SIZE = 8
-IMAGE_SIZE = (224, 224)
-
 # --- HARDWARE & SYSTEM CONFIG ---
 BATCH_SIZE = 8
 CPU_THREADS = 3         # Limits TensorFlow threads to prevent OS lockups
@@ -57,5 +54,22 @@ corn_class = [
 
 potato_class = []
 
-training_model_list = apple_class
-training_model_name = "apple_model_v2"
+PLANT_CONFIG = {
+    "apple": {
+        "classes": apple_class,
+        "model_name": "apple_model"
+    },
+    "corn": {
+        "classes": corn_class,
+        "model_name": "corn_model"
+    },
+    "tomato": {
+        "classes": tomato_class,
+        "model_name": "tomato_model"
+    },
+}
+
+MODEL_PATHS = {
+    plant: f"server/models/{config['model_name']}.keras"
+    for plant, config in PLANT_CONFIG.items()
+}

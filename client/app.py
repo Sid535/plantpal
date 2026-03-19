@@ -62,7 +62,7 @@ def run_client():
             st.image(
                 uploaded_file, 
                 caption='Uploaded Leaf Sample', 
-                width='stretch'
+                use_container_width=True
             )
         
         with col2:
