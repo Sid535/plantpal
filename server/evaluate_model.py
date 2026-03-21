@@ -24,20 +24,14 @@ def evaluate():
 
     print(f"--- Evaluating {model_name} ---")
     
-    # IMPORTANT: shuffle=False is required here so the labels don't mix up during prediction
-    val_test_pool = tf.keras.utils.image_dataset_from_directory(
+    test_ds = tf.keras.utils.image_dataset_from_directory(
         dataset_path,
         class_names=training_model_list,
-        validation_split=VALIDATION_SPLIT,
-        subset="validation",
         seed=SEED,
         image_size=IMAGE_SIZE,
         batch_size=BATCH_SIZE,
+        shuffle=False
     )
-
-    # Skip the validation half to get the test half
-    val_batches = val_test_pool.cardinality()
-    test_ds = val_test_pool.skip(val_batches // 2)
 
     if not os.path.exists(model_path):
         print(f"Error: Model not found at {model_path}. Train the model first.")
@@ -80,6 +74,7 @@ def evaluate():
 
     # Save the plot as a PNG image
     plot_path = str(ROOT / "server" / "reports" / "confusion_matrix" / f"{model_name}_confusion_matrix.png")
+    os.makedirs(os.path.dirname(plot_path), exist_ok=True)
     plt.savefig(plot_path, dpi=300)
 
     print(f"Confusion matrix saved to: {plot_path}")
