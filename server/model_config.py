@@ -59,7 +59,7 @@ peach_class = [
     'Peach___healthy',
 ]
 
-pepper,_bell_class = [
+pepper_bell_class = [
     'Pepper,_bell___Bacterial_spot',
     'Pepper,_bell___healthy',
 ]
@@ -108,7 +108,7 @@ ALL_CLASSES = [
     *grape_class,
     *orange_class,
     *peach_class,
-    *pepper,_bell_class,
+    *pepper_bell_class,
     *potato_class,
     *raspberry_class,
     *soybean_class,
