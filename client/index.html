@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PlantPal — Smart Plant Health Monitoring</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="c1"></div>
+<div id="c2"></div>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav id="nav">
+  <div class="logo">
+    <div class="logo-icon">🌿</div>
+    Plant<em>Pal</em>
+  </div>
+  <ul>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#diagnose">Diagnose</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('diagnose').scrollIntoView({behavior:'smooth'})">
+    Try For Free
+  </button>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-canvas"></div>
+  <div class="hero-inner">
+
+    <div class="hero-left">
+      <div class="badge"><span class="badge-pulse"></span> AI-Powered • Free to Use</div>
+      <h1>
+        Know Your<br>
+        <span class="accent">Plant's</span><br>
+        <span class="ghost">Health</span>
+      </h1>
+      <p class="hero-p">Snap a photo of any leaf. PlantPal's machine learning engine detects diseases, scores health, and gives you a personalised care plan — instantly.</p>
+      <div class="btns">
+        <button class="btn-main" onclick="document.getElementById('diagnose').scrollIntoView({behavior:'smooth'})">
+          <span>Diagnose My Plant</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+        <a href="#how" class="btn-ghost">
+          See how it works
+          <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
+      </div>
+      <div class="stats-row">
+        <div class="stat-item"><div class="stat-n">38+</div><div class="stat-l">Diseases Detected</div></div>
+        <div class="stat-item"><div class="stat-n">95%</div><div class="stat-l">Accuracy Rate</div></div>
+        <div class="stat-item"><div class="stat-n">&lt;3s</div><div class="stat-l">Avg. Analysis</div></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card-wrap">
+        <div class="chip-float chip1">🔬 ML Powered</div>
+        <div class="chip-float chip2">⚡ Instant Results</div>
+        <div class="hcard">
+          <div class="hcard-top">
+            <div class="hcard-plant">
+              <div class="plant-thumb">🌿</div>
+              <div>
+                <div class="plant-name">Monstera Deliciosa</div>
+                <div class="plant-sci">Araceae family</div>
+              </div>
+            </div>
+            <div class="health-chip">✓ Healthy</div>
+          </div>
+          <div class="score-arc">
+            <svg class="arc-svg" viewBox="0 0 180 100">
+              <path d="M20 90 A70 70 0 0 1 160 90" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="12" stroke-linecap="round"/>
+              <path d="M20 90 A70 70 0 0 1 160 90" fill="none" stroke="url(#lg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="220" stroke-dashoffset="24"/>
+              <defs>
+                <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#4ade80"/>
+                  <stop offset="100%" stop-color="#b5f23d"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-big"><span>89%</span><span>Health Score</span></div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-icon">💧</div><div class="metric-val">Good</div><div class="metric-key">Water</div></div>
+            <div class="metric"><div class="metric-icon">☀️</div><div class="metric-val">High</div><div class="metric-key">Light</div></div>
+            <div class="metric"><div class="metric-icon">🌡️</div><div class="metric-val">22°C</div><div class="metric-key">Temp</div></div>
+          </div>
+          <div class="disease-tag">
+            <div class="disease-icon">✅</div>
+            <div class="disease-text">No disease detected — plant is in excellent condition.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FEATURES ──────────────────────────────────────────────── -->
+<section id="features">
+  <p class="eyebrow reveal">What PlantPal Can Do</p>
+  <h2 class="section-h reveal">Built for every <em>plant parent</em></h2>
+  <div class="feat-grid">
+    <div class="feat reveal" data-d="1">
+      <div class="feat-num">01</div>
+      <div class="feat-ico">🔬</div>
+      <h3>Disease Detection</h3>
+      <p>Our CNN model scans leaf images for fungal, bacterial, and viral infections with clinical-level precision.</p>
+      <div class="feat-tag">Image Classification</div>
+    </div>
+    <div class="feat reveal" data-d="2">
+      <div class="feat-num">02</div>
+      <div class="feat-ico">💊</div>
+      <h3>Smart Care Tips</h3>
+      <p>Get condition-specific guidance — watering schedules, treatments, and fertiliser advice personalised to your plant's state.</p>
+      <div class="feat-tag">AI Recommendations</div>
+    </div>
+    <div class="feat reveal" data-d="3">
+      <div class="feat-num">03</div>
+      <div class="feat-ico">🌿</div>
+      <h3>14 Plant Species</h3>
+      <p>Tomatoes, apples, grapes, corn, potatoes and more — PlantPal recognises every species in the PlantVillage dataset.</p>
+      <div class="feat-tag">Multi-Species</div>
+    </div>
+    <div class="feat reveal" data-d="4">
+      <div class="feat-num">04</div>
+      <div class="feat-ico">📊</div>
+      <h3>Health Scoring</h3>
+      <p>Get a clear health percentage score, confidence metrics, and visual indicators — no jargon, just clarity.</p>
+      <div class="feat-tag">Visual Analytics</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ──────────────────────────────────────────── -->
+<section id="how">
+  <p class="eyebrow reveal">The Process</p>
+  <h2 class="section-h reveal">Three steps to a <em>healthier plant</em></h2>
+  <div class="steps">
+    <div class="step reveal" data-d="1">
+      <div class="step-n">Step 01</div>
+      <div class="step-ico-wrap">📷</div>
+      <h3>Upload a Leaf Photo</h3>
+      <p>Drag &amp; drop or browse your device. Works with any clear photo of a plant leaf.</p>
+    </div>
+    <div class="step reveal" data-d="2">
+      <div class="step-n">Step 02</div>
+      <div class="step-ico-wrap">🤖</div>
+      <h3>ML Model Analyses</h3>
+      <p>TensorFlow scans the image, identifies the species, and checks for 38+ known diseases.</p>
+    </div>
+    <div class="step reveal" data-d="3">
+      <div class="step-n">Step 03</div>
+      <div class="step-ico-wrap">✅</div>
+      <h3>Get Your Report</h3>
+      <p>Receive a full health report with diagnosis, health score, and a personalised care plan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIAGNOSE ──────────────────────────────────────────────── -->
+<section id="diagnose">
+  <p class="eyebrow reveal">Try It Now</p>
+  <h2 class="section-h reveal">Upload a leaf, get <em>instant answers</em></h2>
+  <div class="diag-grid">
+
+    <!-- Upload panel -->
+    <div class="upload-panel reveal">
+      <div class="dropzone" id="dz">
+        <input type="file" id="fileIn" accept="image/*"/>
+        <div id="dzInner">
+          <span class="dz-ico">🍃</span>
+          <div class="dz-h">Drop your plant image here</div>
+          <div class="dz-sub">or <strong>browse files</strong> from your device</div>
+          <div class="dz-hint">JPG, PNG, WEBP — max 10MB</div>
+        </div>
+        <div class="dz-preview" id="dzPrev">
+          <img id="prevImg" src="" alt="Preview"/>
+          <div class="dz-preview-mask"><span>Click to change</span></div>
+        </div>
+      </div>
+
+      <button class="analyze-btn" id="analyzeBtn" disabled>
+        <span id="btnTxt">🔬 Analyse Plant Health</span>
+        <div class="spin" id="btnSpin"></div>
+      </button>
+
+      <div class="upload-note">🔒 Images are processed locally and never stored</div>
+    </div>
+
+    <!-- Results panel -->
+    <div class="results-panel" id="resultsPanel">
+
+      <div class="empty-state" id="emptyState">
+        <div class="empty-ico">🌱</div>
+        <div class="empty-h">No plant analysed yet</div>
+        <p class="empty-p">Upload a leaf photo and hit<br>
+          <strong style="color:rgba(255,255,255,.4)">Analyse Plant Health</strong>
+          to see your full report here.</p>
+      </div>
+
+      <div class="loading-state" id="loadState">
+        <div class="scanner">
+          <div class="scanner-ring"></div>
+          <div class="scanner-ring"></div>
+          <div class="scanner-ring"></div>
+          <div class="scanner-core">🌿</div>
+          <div class="scan-line"></div>
+        </div>
+        <div class="loading-h">Analysing your plant…</div>
+        <div class="loading-steps">
+          <div class="lstep" id="ls1"><div class="lstep-dot"></div> Identifying plant species…</div>
+          <div class="lstep" id="ls2"><div class="lstep-dot"></div> Scanning for diseases…</div>
+          <div class="lstep" id="ls3"><div class="lstep-dot"></div> Calculating health score…</div>
+          <div class="lstep" id="ls4"><div class="lstep-dot"></div> Generating care plan…</div>
+        </div>
+      </div>
+
+      <div class="result-content" id="resultContent">
+        <div class="result-header">
+          <div class="result-plant">
+            <h3 id="rName">—</h3>
+            <p id="rSci">—</p>
+          </div>
+          <div class="status-badge" id="rBadge">—</div>
+        </div>
+        <div class="score-row">
+          <div class="score-circle">
+            <svg viewBox="0 0 90 90" width="90" height="90">
+              <circle class="track" cx="45" cy="45" r="35"/>
+              <circle class="fill" id="scoreCircle" cx="45" cy="45" r="35"/>
+            </svg>
+            <div class="score-inner">
+              <span id="scoreNum">0</span>
+              <span>Health</span>
+            </div>
+          </div>
+          <div class="score-conds" id="scoreConds"></div>
+        </div>
+        <div class="diag-box" id="diagBox">
+          <div class="diag-label" id="diagLabel">Diagnosis</div>
+          <p id="diagText">—</p>
+        </div>
+        <div class="recs-box">
+          <div class="recs-label" id="recsLabel">Care Recommendations</div>
+          <ul class="rec-list" id="recList"></ul>
+        </div>
+        <div class="low-conf-warn" id="lowConfWarn" style="display:none">
+          ⚠️ Low confidence — try a clearer, well-lit photo for better accuracy.
+        </div>
+        <div class="low-conf-warn" id="expertNote" style="display:none;background:rgba(255,255,255,0.05);color:#e5e7eb"></div>
+        <div class="conf-row">
+          <span>Model Confidence</span>
+          <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+          <span class="conf-val" id="confVal">—</span>
+        </div>
+        <button class="reset-btn" onclick="resetAll()">↩ Analyse another plant</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── SDG ───────────────────────────────────────────────────── -->
+<section id="sdg">
+  <div class="sdg-inner">
+    <div>
+      <div class="sdg-label">🌍 SDG 12 Alignment</div>
+      <h3>Fighting plant waste through early detection</h3>
+      <p>PlantPal supports Responsible Consumption &amp; Production by catching disease before it spreads — cutting down on water overuse, excessive fertilisers, and preventable plant loss.</p>
+    </div>
+    <div class="sdg-pills">
+      <div class="sdg-pill">♻️ Reduces plant waste</div>
+      <div class="sdg-pill">💧 Saves water</div>
+      <div class="sdg-pill">🌱 Sustainable care</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo">Plant<span>Pal</span></div>
+  <div class="footer-tagline">Smart Plant Health Monitoring</div>
+  <div class="footer-team">Made with 🌱 by <strong>TE_A_12</strong> — Karunya Ingale · Yash Jikamade · Swastik Mahajan · Siddesh Koli</div>
+  <div class="footer-team" style="margin-top:.3rem">Guide: <strong>Prof. Snehal Mali</strong></div>
+  <div class="footer-bottom">Powered by TensorFlow · FastAPI · Pandas · NumPy</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
