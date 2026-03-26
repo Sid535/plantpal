@@ -7,7 +7,7 @@ PLANT_INFO = {
     "Apple___Apple_scab": {
         "display_name": "Apple — Apple Scab",
         "severity": "🟡 Moderate",
-        "urgency": "Act within 3–4 days",
+        "urgency": "Act within 3-4 days",
         "what_is_it": (
             "Apple Scab is a fungal disease caused by Venturia inaequalis. "
             "It creates olive-green to dark brown scabby patches on leaves and fruit. "

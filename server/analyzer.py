@@ -37,21 +37,14 @@ def analyze_plant_image(image_file):
     plant_name = parts[0].split("_(")[0]
     condition = parts[1].replace("_", " ").strip() if len(parts) > 1 else "Unknown"
     confidence = float(np.max(predictions[0])) * 100
-    info = PLANT_INFO.get(full_label, {})
-    if "healthy" in full_label.lower():
-        treatment_list = info.get("care_tips", ["Maintain regular watering and care."])
-    else:
-        treatment_list = info.get("treatment", ["Consult an agronomist for specific treatment advice."])
     
-    if isinstance(treatment_list, list):
-        treatment_str = "\n".join(treatment_list)
-    else:
-        treatment_str = treatment_list
+    # Grab the full dictionary for this plant
+    info = PLANT_INFO.get(full_label, {})
 
     return {
         "plant_name": plant_name,
         "condition": condition,
         "confidence": confidence,
-        "treatment": treatment_str,
-        "low_confidence": confidence < 70
+        "low_confidence": confidence < 70,
+        "info": info  # Pass the entire dictionary to the frontend!
     }
