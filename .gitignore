@@ -12,4 +12,9 @@ wheels/
 # Datasets
 data/plantvillage_dataset
 server/models/vgg16_model.keras
-server/models/custom_cnn.keras
+server/models/custom_cnn.kerasserver/models/custom_cnn.keras
+server/models/apple_model.keras
+server/models/corn_model.keras
+server/models/tomato_model.keras
+server/models/tomato_model_v2.keras
+server/models/vgg16_model.keras
