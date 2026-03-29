@@ -12,3 +12,4 @@ wheels/
 # Datasets
 data/plantvillage_dataset
 server/models/vgg16_model.keras
+server/models/custom_cnn.keras
