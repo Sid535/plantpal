@@ -1,14 +1,18 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PlantPal — Smart Plant Health Monitoring</title>
-  <link rel="stylesheet" href="/styles.css"/>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
 
-<!-- ── Navigation ── -->
+<!-- Custom cursor -->
+<div id="c1"></div>
+<div id="c2"></div>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
 <nav id="nav">
   <div class="logo">
     <div class="logo-icon">🌿</div>
@@ -16,242 +20,982 @@
   </div>
   <ul>
     <li><a href="#features" data-i18n="nav.features">Features</a></li>
-    <li><a href="#how"      data-i18n="nav.how">How It Works</a></li>
+    <li><a href="#how" data-i18n="nav.how">How It Works</a></li>
     <li><a href="#diagnose" data-i18n="nav.diagnose">Diagnose</a></li>
   </ul>
-  <div style="display:flex; gap:1rem; align-items:center;">
-    <select id="langSelect" onchange="setLanguage(this.value)">
+  <div style="display:flex;gap:1rem;align-items:center">
+    <select id="langSelect" onchange="setLanguage(this.value)" style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:0.5rem 0.8rem;border-radius:8px;font-size:0.9rem;cursor:pointer;font-weight:600">
       <option value="en">English</option>
       <option value="hi">हिंदी</option>
       <option value="mr">मराठी</option>
     </select>
-    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">🌙</button>
+    <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
   </div>
 </nav>
 
-<!-- ── Hero ── -->
+<!-- ── HERO ─────────────────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-canvas"></div>
   <div class="hero-inner">
+
     <div class="hero-left">
-      <div class="badge"><span class="badge-pulse"></span> <span data-i18n="hero.badge">AI-Powered • Free</span></div>
-      <h1><span data-i18n="hero.h1.line1">Know Your</span> <span class="accent" data-i18n="hero.h1.accent">Plant's</span> <span class="ghost" data-i18n="hero.h1.ghost">Health</span></h1>
-      <p class="hero-p" data-i18n="hero.p">Snap a photo of any leaf. PlantPal's machine learning engine detects diseases and provides care plans instantly.</p>
+      <h1>
+        <span data-i18n="hero.title1">Know Your</span><br>
+        <span class="accent" data-i18n="hero.title2">Plant's</span><br>
+        <span class="ghost" data-i18n="hero.title3">Health</span>
+      </h1>
+      <p class="hero-p" data-i18n="hero.subtitle">Snap a photo of any leaf. PlantPal's machine learning engine detects diseases, scores health, and gives you a personalised care plan — instantly.</p>
       <div class="btns">
         <button class="btn-main" onclick="document.getElementById('diagnose').scrollIntoView({behavior:'smooth'})">
-          <span data-i18n="hero.btn">Diagnose My Plant</span>
+          <span data-i18n="hero.btn1">Diagnose My Plant</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
         </button>
+        <a href="#how" class="btn-ghost">
+          <span data-i18n="hero.btn2">See how it works</span>
+          <svg width="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 9l-7 7-7-7"/>
+          </svg>
+        </a>
       </div>
       <div class="stats-row">
-        <div>
-          <div class="stat-n" data-i18n="hero.stat1">38+</div>
-          <div class="stat-l" data-i18n="hero.stat1_label">Diseases Detected</div>
-        </div>
-        <div>
-          <div class="stat-n" data-i18n="hero.stat2">99%</div>
-          <div class="stat-l" data-i18n="hero.stat2_label">Accuracy</div>
-        </div>
-        <div>
-          <div class="stat-n" data-i18n="hero.stat3">3s</div>
-          <div class="stat-l" data-i18n="hero.stat3_label">Analysis Time</div>
-        </div>
+        <div class="stat-item"><div class="stat-n" data-i18n="hero.stat1">38+</div><div class="stat-l" data-i18n="hero.stat1_label">Diseases Detected</div></div>
+        <div class="stat-item"><div class="stat-n" data-i18n="hero.stat2">95%</div><div class="stat-l" data-i18n="hero.stat2_label">Accuracy Rate</div></div>
+        <div class="stat-item"><div class="stat-n" data-i18n="hero.stat3"><3s</div><div class="stat-l" data-i18n="hero.stat3_label">Avg. Analysis</div></div>
       </div>
     </div>
+
     <div class="hero-right">
       <div class="hero-card-wrap">
-        <div class="chip-float chip1">🌿 Healthy Leaf</div>
+        <div class="chip-float chip1">🔬 ML Powered</div>
+        <div class="chip-float chip2">⚡ Instant Results</div>
         <div class="hcard">
           <div class="hcard-top">
             <div class="hcard-plant">
               <div class="plant-thumb">🌿</div>
               <div>
-                <div class="plant-name">Monstera</div>
-                <div class="plant-sci">Monstera deliciosa</div>
+                <div class="plant-name">Monstera Deliciosa</div>
+                <div class="plant-sci">Araceae family</div>
               </div>
             </div>
             <div class="health-chip">✓ Healthy</div>
           </div>
           <div class="score-arc">
-            <div class="score-big">
-              <span>89%</span>
-              <span>Health</span>
-            </div>
+            <svg class="arc-svg" viewBox="0 0 180 100">
+              <path d="M20 90 A70 70 0 0 1 160 90" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="12" stroke-linecap="round"/>
+              <path d="M20 90 A70 70 0 0 1 160 90" fill="none" stroke="url(#lg)" stroke-width="12" stroke-linecap="round" stroke-dasharray="220" stroke-dashoffset="24"/>
+              <defs>
+                <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#4ade80"/>
+                  <stop offset="100%" stop-color="#b5f23d"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="score-big"><span>89%</span><span>Health Score</span></div>
           </div>
           <div class="metrics">
             <div class="metric"><div class="metric-icon">💧</div><div class="metric-val">Good</div><div class="metric-key">Water</div></div>
             <div class="metric"><div class="metric-icon">☀️</div><div class="metric-val">High</div><div class="metric-key">Light</div></div>
-            <div class="metric"><div class="metric-icon">🌱</div><div class="metric-val">Rich</div><div class="metric-key">Soil</div></div>
+            <div class="metric"><div class="metric-icon">🌡️</div><div class="metric-val">22°C</div><div class="metric-key">Temp</div></div>
+          </div>
+          <div class="disease-tag">
+            <div class="disease-icon">✅</div>
+            <div class="disease-text">No disease detected — plant is in excellent condition.</div>
           </div>
         </div>
-        <div class="chip-float chip2">✓ No Disease Found</div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- ── Features ── -->
+<!-- ── FEATURES ──────────────────────────────────────────────── -->
 <section id="features">
-  <p class="eyebrow" data-i18n="feat.eyebrow">Why PlantPal</p>
-  <h2 class="section-h"><span data-i18n="feat.heading">Everything your plant</span> <em data-i18n="feat.heading.em">needs</em></h2>
+  <p class="eyebrow reveal" data-i18n="features.eyebrow">What PlantPal Can Do</p>
+  <h2 class="section-h reveal" data-i18n="features.title">Built for every plant parent</h2>
   <div class="feat-grid">
     <div class="feat reveal" data-d="1">
       <div class="feat-num">01</div>
       <div class="feat-ico">🔬</div>
-      <h3 data-i18n="feat1.title">AI Diagnosis</h3>
-      <p data-i18n="feat1.desc">Instantly identify 38+ plant diseases with our trained ML model, right from your browser.</p>
-      <span class="feat-tag" data-i18n="feat1.tag">ML Powered</span>
+      <h3 data-i18n="features.f1_title">Disease Detection</h3>
+      <p data-i18n="features.f1_desc">Our CNN model scans leaf images for fungal, bacterial, and viral infections with clinical-level precision.</p>
+      <div class="feat-tag" data-i18n="features.f1_tag">Image Classification</div>
     </div>
     <div class="feat reveal" data-d="2">
       <div class="feat-num">02</div>
       <div class="feat-ico">💊</div>
-      <h3 data-i18n="feat2.title">Treatment Plans</h3>
-      <p data-i18n="feat2.desc">Get step-by-step care instructions tailored to your plant's specific condition.</p>
-      <span class="feat-tag" data-i18n="feat2.tag">Actionable</span>
+      <h3 data-i18n="features.f2_title">Smart Care Tips</h3>
+      <p data-i18n="features.f2_desc">Get condition-specific guidance — watering schedules, treatments, and fertiliser advice personalised to your plant's state.</p>
+      <div class="feat-tag" data-i18n="features.f2_tag">AI Recommendations</div>
     </div>
     <div class="feat reveal" data-d="3">
       <div class="feat-num">03</div>
-      <div class="feat-ico">🌍</div>
-      <h3 data-i18n="feat3.title">Multilingual</h3>
-      <p data-i18n="feat3.desc">Available in English, Hindi and Marathi so every farmer can access it.</p>
-      <span class="feat-tag" data-i18n="feat3.tag">3 Languages</span>
+      <div class="feat-ico">🌿</div>
+      <h3 data-i18n="features.f3_title">14 Plant Species</h3>
+      <p data-i18n="features.f3_desc">Tomatoes, apples, grapes, corn, potatoes and more — PlantPal recognises every species in the PlantVillage dataset.</p>
+      <div class="feat-tag" data-i18n="features.f3_tag">Multi-Species</div>
     </div>
     <div class="feat reveal" data-d="4">
       <div class="feat-num">04</div>
-      <div class="feat-ico">⚡</div>
-      <h3 data-i18n="feat4.title">Instant Results</h3>
-      <p data-i18n="feat4.desc">Analysis completes in under 3 seconds. No waiting, no sign-up required.</p>
-      <span class="feat-tag" data-i18n="feat4.tag">Free</span>
+      <div class="feat-ico">📊</div>
+      <h3 data-i18n="features.f4_title">Health Scoring</h3>
+      <p data-i18n="features.f4_desc">Get a clear health percentage score, confidence metrics, and visual indicators — no jargon, just clarity.</p>
+      <div class="feat-tag" data-i18n="features.f4_tag">Visual Analytics</div>
     </div>
   </div>
 </section>
 
-<!-- ── How It Works ── -->
+<!-- ── HOW IT WORKS ──────────────────────────────────────────── -->
 <section id="how">
-  <p class="eyebrow" data-i18n="how.eyebrow">Simple Process</p>
-  <h2 class="section-h"><span data-i18n="how.heading">Three steps to</span> <em data-i18n="how.heading.em">clarity</em></h2>
+  <p class="eyebrow reveal" data-i18n="how.eyebrow">The Process</p>
+  <h2 class="section-h reveal" data-i18n="how.title">Three steps to a healthier plant</h2>
   <div class="steps">
     <div class="step reveal" data-d="1">
-      <div class="step-n" data-i18n="step1.n">Step 01</div>
-      <div class="step-ico-wrap">📸</div>
-      <h3 data-i18n="step1.title">Snap a Photo</h3>
-      <p data-i18n="step1.desc">Take a clear close-up of the affected leaf or upload one from your gallery.</p>
+      <div class="step-n">Step 01</div>
+      <div class="step-ico-wrap">📷</div>
+      <h3 data-i18n="how.step1_title">Upload a Leaf Photo</h3>
+      <p data-i18n="how.step1_desc">Drag &amp; drop or browse your device. Works with any clear photo of a plant leaf.</p>
     </div>
     <div class="step reveal" data-d="2">
-      <div class="step-n" data-i18n="step2.n">Step 02</div>
+      <div class="step-n">Step 02</div>
       <div class="step-ico-wrap">🤖</div>
-      <h3 data-i18n="step2.title">AI Analyses</h3>
-      <p data-i18n="step2.desc">Our model scans for visual disease markers and calculates a health score.</p>
+      <h3 data-i18n="how.step2_title">ML Model Analyses</h3>
+      <p data-i18n="how.step2_desc">TensorFlow scans the image, identifies the species, and checks for 38+ known diseases.</p>
     </div>
     <div class="step reveal" data-d="3">
-      <div class="step-n" data-i18n="step3.n">Step 03</div>
-      <div class="step-ico-wrap">📋</div>
-      <h3 data-i18n="step3.title">Get Your Report</h3>
-      <p data-i18n="step3.desc">Receive a full diagnosis with confidence score, treatment plan, and prevention tips.</p>
+      <div class="step-n">Step 03</div>
+      <div class="step-ico-wrap">✅</div>
+      <h3 data-i18n="how.step3_title">Get Your Report</h3>
+      <p data-i18n="how.step3_desc">Receive a full health report with diagnosis, health score, and a personalised care plan.</p>
     </div>
   </div>
 </section>
 
-<!-- ── Diagnose ── -->
+<!-- ── DIAGNOSE ──────────────────────────────────────────────── -->
 <section id="diagnose">
-  <p class="eyebrow" data-i18n="diag.eyebrow">Try It Now</p>
-  <h2 class="section-h"><span data-i18n="diag.heading">Diagnose your</span> <em data-i18n="diag.heading.em">plant</em></h2>
+  <p class="eyebrow reveal" data-i18n="diagnose.eyebrow">Try It Now</p>
+  <h2 class="section-h reveal" data-i18n="diagnose.title">Upload a leaf, get instant answers</h2>
   <div class="diag-grid">
 
-    <!-- Upload Panel -->
+    <!-- Upload panel -->
     <div class="upload-panel reveal">
       <div class="dropzone" id="dz">
-        <input type="file" id="fileIn" accept="image/jpeg,image/png,image/webp"/>
+        <input type="file" id="fileIn" accept="image/*"/>
         <div id="dzInner">
           <span class="dz-ico">🍃</span>
-          <div class="dz-h" data-i18n="dz.heading">Drop plant image here</div>
-          <div class="dz-sub"><span data-i18n="dz.sub">or</span> <strong data-i18n="dz.sub.strong">click to browse</strong></div>
-          <div class="dz-hint" data-i18n="dz.hint">JPG · PNG · WEBP · max 10 MB</div>
+          <div class="dz-h" data-i18n="diagnose.dz_title">Drop your plant image here</div>
+          <div class="dz-sub" data-i18n="diagnose.dz_subtitle">or browse files from your device</div>
+          <div class="dz-hint" data-i18n="diagnose.dz_hint">JPG, PNG, WEBP — max 10MB</div>
         </div>
         <div class="dz-preview" id="dzPrev">
           <img id="prevImg" src="" alt="Preview"/>
-          <div class="dz-preview-mask"><span>Change Image</span></div>
+          <div class="dz-preview-mask"><span>Click to change</span></div>
         </div>
       </div>
+
       <button class="analyze-btn" id="analyzeBtn" disabled>
-        <span id="btnTxt" data-i18n="btn.analyse">🔬 Analyse Plant Health</span>
+        <span id="btnTxt" data-i18n="diagnose.btn">🔬 Analyse Plant Health</span>
         <div class="spin" id="btnSpin"></div>
       </button>
-      <p class="upload-note" data-i18n="upload.note">🔒 Images are never stored</p>
+
+      <div class="upload-note" data-i18n="diagnose.note">🔒 Images are processed locally and never stored</div>
     </div>
 
-    <!-- Results Panel -->
+    <!-- Results panel -->
     <div class="results-panel" id="resultsPanel">
 
       <div class="empty-state" id="emptyState">
         <div class="empty-ico">🌱</div>
-        <div class="empty-h" data-i18n="empty.h">No image yet</div>
-        <p class="empty-p" data-i18n="empty.p">Upload a leaf photo to see the diagnosis report.</p>
+        <div class="empty-h" data-i18n="results.empty">No plant analysed yet</div>
+        <p class="empty-p">Upload a leaf photo and hit<br>
+          <strong style="color:rgba(255,255,255,.4)">Analyse Plant Health</strong>
+          to see your full report here.</p>
       </div>
 
-      <!-- Loading state -->
       <div class="loading-state" id="loadState">
         <div class="scanner">
           <div class="scanner-ring"></div>
           <div class="scanner-ring"></div>
           <div class="scanner-ring"></div>
-          <div class="scanner-core">🔬</div>
+          <div class="scanner-core">🌿</div>
           <div class="scan-line"></div>
         </div>
-        <div class="loading-h" data-i18n="loading.h">Analysing your plant…</div>
+        <div class="loading-h">Analysing your plant…</div>
+        <div class="loading-steps">
+          <div class="lstep" id="ls1"><div class="lstep-dot"></div> Identifying plant species…</div>
+          <div class="lstep" id="ls2"><div class="lstep-dot"></div> Scanning for diseases…</div>
+          <div class="lstep" id="ls3"><div class="lstep-dot"></div> Calculating health score…</div>
+          <div class="lstep" id="ls4"><div class="lstep-dot"></div> Generating care plan…</div>
+        </div>
       </div>
 
-      <!-- Result content -->
       <div class="result-content" id="resultContent">
+        <!-- ── HEADER ────────────────────────────────────────── -->
         <div class="result-header">
           <div class="result-plant">
-            <h3 id="rName">—</h3>
-            <p  id="rSci">—</p>
+            <h2 id="rName" style="font-size:1.5rem;margin-bottom:0.3rem">—</h2>
+            <p id="rCondition" style="font-size:0.9rem;color:var(--lime);font-weight:700;margin-bottom:0.4rem">—</p>
+            <p id="rSci" style="font-size:0.85rem;color:var(--muted);font-style:italic">—</p>
           </div>
-          <div class="status-badge" id="rBadge">—</div>
         </div>
 
-        <div class="score-row">
-          <div class="score-circle">
-            <svg viewBox="0 0 90 90">
-              <circle class="track" cx="45" cy="45" r="35"/>
-              <circle class="fill" id="scoreCircle" cx="45" cy="45" r="35"/>
-            </svg>
-            <div class="score-inner">
-              <span id="scoreNum">0</span>
-              <span>Health</span>
+        <!-- ── HEALTH SCORE ──────────────────────────────────── -->
+        <div class="score-row" style="align-items:flex-start;margin-bottom:1.8rem">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+            <div class="score-circle-large" style="width:220px;height:220px">
+              <svg viewBox="0 0 180 180" width="220" height="220" style="filter:drop-shadow(0 10px 20px var(--lime-glow))">
+                <circle class="track" cx="90" cy="90" r="70" fill="none" stroke="rgba(0,0,0,0.1)" stroke-width="10"/>
+                <circle class="fill" id="scoreCircle" cx="90" cy="90" r="70" fill="none" stroke="var(--lime)" stroke-width="10" stroke-dasharray="440" stroke-dashoffset="440" stroke-linecap="round"/>
+              </svg>
+              <div class="score-inner-large" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                <span id="scoreNum" style="font-size:3.5rem;font-weight:800;color:var(--lime);line-height:1">0</span>
+              </div>
             </div>
+            <div style="font-size:0.85rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;font-weight:700;margin-top:1rem">Health Score</div>
           </div>
-          <div class="score-conds" id="scoreConds"></div>
+          <div id="metricCards" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;flex:1;margin-left:1.5rem"></div>
         </div>
 
-        <div class="diag-box" id="diagBox">
-          <div class="diag-label" data-i18n="result.diag.label">Diagnosis</div>
-          <p id="diagText">—</p>
+        <!-- ── TABS ─────────────────────────────────────────── -->
+        <div class="result-tabs" style="border-top:1px solid var(--border);padding-top:1.5rem;margin-top:1.5rem">
+          <button class="tab-btn active" data-tab="details">🔍 Details</button>
+          <button class="tab-btn" data-tab="treatment">💊 Treatment</button>
+          <button class="tab-btn" data-tab="prevention">🛡️ Prevention</button>
         </div>
 
-        <div class="conf-row">
-          <span data-i18n="result.conf.label">Confidence</span>
-          <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
-          <span class="conf-val" id="confVal">—</span>
+        <!-- ── TAB: DETAILS ─────────────────────────────────── -->
+        <div class="tab-content active" id="tab-details">
+          <div id="detailsContent" style="display:flex;flex-direction:column;gap:1.2rem"></div>
+          <div id="expertNoteBox" style="display:none;margin-top:1rem;background:var(--accent-dim);border-left:3px solid var(--accent);border-radius:8px;padding:1rem">
+            <div style="font-size:0.75rem;font-weight:700;color:var(--accent);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem">👨‍🔬 Expert Note</div>
+            <p id="expertNoteText" style="font-size:0.84rem;color:var(--text2);line-height:1.6;margin:0"></p>
+          </div>
         </div>
-        <button class="reset-btn" id="printBtn" onclick="window.print()" style="margin-left: 10px;">
-          Save Report
-        </button>
-        <button class="reset-btn" onclick="resetAll()" data-i18n="result.reset">↩ Try Another</button>
+
+        <!-- ── TAB: TREATMENT ──────────────────────────────── -->
+        <div class="tab-content" id="tab-treatment">
+          <div id="treatmentContent"></div>
+          <div id="lowConfWarn" style="display:none;background:rgba(224,112,112,.08);border-left:3px solid var(--red);border-radius:8px;padding:1rem;margin-top:1rem">
+            <div style="font-size:0.75rem;font-weight:700;color:var(--red);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.4rem">⚠️ Low Confidence</div>
+            <p style="font-size:0.84rem;color:var(--text2);margin:0">This diagnosis has lower confidence. Please verify with a professional or try uploading a clearer photo.</p>
+          </div>
+        </div>
+
+        <!-- ── TAB: PREVENTION ──────────────────────────────── -->
+        <div class="tab-content" id="tab-prevention">
+          <div id="preventionContent"></div>
+        </div>
+
+        <!-- ── CONFIDENCE & ACTIONS ────────────────────────── -->
+        <div style="margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid var(--border)">
+          <div class="conf-row" style="margin-bottom:1.5rem">
+            <span style="font-weight:600;font-size:0.85rem">Model Confidence</span>
+            <div class="conf-track"><div class="conf-fill" id="confFill"></div></div>
+            <span class="conf-val" id="confVal">—</span>
+          </div>
+          <div style="display:flex;justify-content:center;margin-top:1.5rem">
+            <button class="reset-btn" style="background:var(--lime);color:#060d08!important;border:none;padding:0.7rem 1.8rem;font-size:0.9rem" onclick="resetAll()">↩ Analyse another plant</button>
+          </div>
+        </div>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ── Footer ── -->
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
 <footer>
   <div class="footer-logo">Plant<span>Pal</span></div>
-  <p class="footer-tagline">Smart Plant Health Monitoring</p>
-  <p class="footer-team">Made by TE_A_12 — Siddesh Koli &amp; Team</p>
-  <p class="footer-bottom">© 2025 PlantPal. All rights reserved.</p>
+  <div class="footer-tagline" data-i18n="footer.tagline">Smart Plant Health Monitoring</div>
+  <div class="footer-team" data-i18n="footer.team">Made with 🌱 by <strong>TE_A_12</strong> — Karunya Ingale · Yash Jikamade · Swastik Mahajan · Siddesh Koli</div>
+  <div class="footer-team" style="margin-top:.3rem" data-i18n="footer.guide">Guide: <strong>Prof. Snehal Mali</strong></div>
+  <div class="footer-bottom" data-i18n="footer.powered">Powered by TensorFlow · FastAPI · Pandas · NumPy</div>
 </footer>
 
-<script src="app.js"></script>
-</body>
-</html>
+<script>
+const API_URL = '/analyze';
+let file = null;
+let currentResult = null;
+
+// ── Dropzone Setup ──
+const dz = document.getElementById('dz'),
+      fi = document.getElementById('fileIn'),
+      analyzeBtn = document.getElementById('analyzeBtn');
+
+dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('over'); });
+dz.addEventListener('dragleave', () => dz.classList.remove('over'));
+dz.addEventListener('drop', e => {
+  e.preventDefault();
+  dz.classList.remove('over');
+  const f = e.dataTransfer.files[0];
+  if (f && f.type.startsWith('image/')) setFile(f);
+});
+
+fi.addEventListener('change', e => e.target.files[0] && setFile(e.target.files[0]));
+
+function setFile(f) {
+  file = f;
+  document.getElementById('prevImg').src = URL.createObjectURL(f);
+  document.getElementById('dzInner').style.display = 'none';
+  document.getElementById('dzPrev').style.display = 'block';
+  analyzeBtn.disabled = false;
+  showEmpty();
+}
+
+// ── Analyze Plant ──
+analyzeBtn.addEventListener('click', runAnalysis);
+
+async function runAnalysis() {
+  if (!file) return;
+  analyzeBtn.disabled = true;
+  analyzeBtn.innerHTML = '<div class="spin"></div> Analysing…';
+  showLoading();
+  
+  const stepIds = ['ls1', 'ls2', 'ls3', 'ls4'];
+  for (let i = 0; i < stepIds.length; i++) {
+    await wait(700);
+    if (i > 0) {
+      const prev = document.getElementById(stepIds[i-1]);
+      prev.classList.remove('active');
+      prev.classList.add('done');
+    }
+    document.getElementById(stepIds[i]).classList.add('active');
+  }
+  await wait(500);
+  document.getElementById('ls4').classList.remove('active');
+  document.getElementById('ls4').classList.add('done');
+  await wait(200);
+
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await fetch(API_URL, { method: 'POST', body: formData });
+    const json = await response.json();
+    
+    if (!json.success || !json.data) throw new Error(json.error || 'Unknown error');
+    
+    currentResult = json.data;
+    showResult(json.data);
+  } catch (err) {
+    showError(err.message);
+  }
+  
+  analyzeBtn.disabled = false;
+  analyzeBtn.innerHTML = '🔬 Analyse Plant Health';
+}
+
+// ── Show Result ──
+function showResult(data) {
+  hideEl('loadState');
+  document.getElementById('resultContent').classList.add('show');
+  document.getElementById('resultsPanel').style.alignItems = 'flex-start';
+  
+  const isHealthy = data.condition.toLowerCase().includes('healthy');
+  const conf = data.confidence;
+  const score = isHealthy ? Math.round(conf) : Math.max(15, Math.round(100 - conf * 0.6));
+  const info = data.info || {};
+  
+  // ── Header ──
+  document.getElementById('rName').textContent = data.plant_name;
+  document.getElementById('rCondition').textContent = data.condition;
+  document.getElementById('rSci').textContent = 'Detected via PlantPal Neural Network';
+  
+  // ── Health Score ──
+  document.getElementById('scoreNum').textContent = score;
+  animScore(score);
+  
+  // Extract severity level (0-100)
+  let severityPercent = 0;
+  if (info.severity) {
+    if (info.severity.includes('CRITICAL')) severityPercent = 90;
+    else if (info.severity.includes('Severe')) severityPercent = 70;
+    else if (info.severity.includes('Moderate')) severityPercent = 50;
+    else if (info.severity.includes('Minor')) severityPercent = 30;
+    else severityPercent = 10;
+  }
+  
+  // Extract days from urgency (e.g., "Act within 2-3 days" -> "2-3 days")
+  let daysText = '—';
+  if (info.urgency) {
+    const match = info.urgency.match(/(\d+(?:-\d+)?)\s*(?:days?)?/i);
+    if (match) daysText = match[1] + ' days';
+  }
+  
+  // ── Metric Cards ──
+  const metricCards = [
+    { 
+      label: 'Health Score', 
+      value: score + '%', 
+      icon: '💚', 
+      color: score >= 70 ? '#10b981' : score >= 50 ? '#f59e0b' : '#ef4444',
+      type: 'text'
+    },
+    { 
+      label: 'Confidence', 
+      value: conf.toFixed(1) + '%', 
+      icon: '📊', 
+      color: conf >= 75 ? '#10b981' : conf >= 50 ? '#f59e0b' : '#ef4444',
+      type: 'text'
+    },
+    { 
+      label: 'Severity', 
+      value: severityPercent,
+      icon: '⚠️', 
+      color: '#ef4444',
+      type: 'bar',
+      severity: info.severity || 'Unknown'
+    },
+    { 
+      label: 'Act', 
+      value: daysText, 
+      icon: '⏱️', 
+      color: '#f59e0b',
+      type: 'text'
+    }
+  ];
+  
+  document.getElementById('metricCards').innerHTML = metricCards.map((card, idx) => {
+    if (card.type === 'bar') {
+      return `
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.05)">
+          <div style="font-size:1.5rem;margin-bottom:0.4rem">${card.icon}</div>
+          <div style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.6rem">${card.label}</div>
+          <div style="width:100%;height:6px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;margin-bottom:0.5rem">
+            <div class="severity-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#ef4444,#f59e0b);border-radius:3px;transition:width 1.2s ease"></div>
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted);">${card.severity}</div>
+        </div>
+      `;
+    } else {
+      return `
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,0.05)">
+          <div style="font-size:1.5rem;margin-bottom:0.4rem">${card.icon}</div>
+          <div style="font-size:1.3rem;font-weight:800;color:${card.color};margin-bottom:0.3rem">${card.value}</div>
+          <div style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em">${card.label}</div>
+        </div>
+      `;
+    }
+  }).join('');
+  
+  // Animate severity bar after rendering
+  setTimeout(() => {
+    const severityBar = document.querySelector('.severity-bar');
+    if (severityBar) severityBar.style.width = severityPercent + '%';
+  }, 100);
+  
+  // ── Details Tab ──
+  let detailsHTML = '';
+  
+  if (info.what_is_it) {
+    detailsHTML += `<div class="detail-box">
+      <div class="detail-label">🔍 What Is It?</div>
+      <p style="color:var(--muted2);line-height:1.6;margin:0.6rem 0 0">${info.what_is_it}</p>
+    </div>`;
+  }
+  
+  if (info.display_name) {
+    detailsHTML += `<div class="detail-box">
+      <div class="detail-label">📝 Full Name</div>
+      <div class="detail-value">${info.display_name}</div>
+    </div>`;
+  }
+  
+  document.getElementById('detailsContent').innerHTML = detailsHTML;
+  
+  if (info.expert_note) {
+    const expertNoteBox = document.getElementById('expertNoteBox');
+    if (expertNoteBox) {
+      expertNoteBox.style.display = 'block';
+      document.getElementById('expertNoteText').textContent = info.expert_note;
+    }
+  } else {
+    const expertNoteBox = document.getElementById('expertNoteBox');
+    if (expertNoteBox) expertNoteBox.style.display = 'none';
+  }
+  
+  // ── Treatment Tab ──
+  let treatmentHTML = '';
+  if (info.treatment && Array.isArray(info.treatment) && info.treatment.length > 0) {
+    treatmentHTML += `<div style="margin-bottom:1.2rem">
+      <div class="recs-label" style="margin-bottom:0.8rem">🔧 Treatment Plan</div>
+      ${info.treatment.map((t, i) => `<div class="treatment-step">
+        <h4>Step ${i+1}</h4>
+        <p>${t}</p>
+      </div>`).join('')}
+    </div>`;
+  } else if (info.care_tips && Array.isArray(info.care_tips) && info.care_tips.length > 0) {
+    treatmentHTML += `<div class="care-tips">
+      <div class="care-tips-label">💡 Daily Care Tips</div>
+      <ul>${info.care_tips.map(t => `<li>${t}</li>`).join('')}</ul>
+    </div>`;
+  }
+  
+  if (info.fun_fact) {
+    treatmentHTML += `<div class="fun-fact">
+      <div class="fun-fact-label">🌟 Did You Know?</div>
+      <p class="fun-fact-text">${info.fun_fact}</p>
+    </div>`;
+  }
+  
+  const treatmentContent = document.getElementById('treatmentContent');
+  if (treatmentContent) treatmentContent.innerHTML = treatmentHTML || '<p style="color:var(--muted)">No treatment information available.</p>';
+  
+  const lowConfWarn = document.getElementById('lowConfWarn');
+  if (lowConfWarn) lowConfWarn.style.display = data.low_confidence ? 'block' : 'none';
+  
+  // ── Prevention Tab ──
+  let preventionHTML = '';
+  if (info.prevention && Array.isArray(info.prevention) && info.prevention.length > 0) {
+    preventionHTML = `<div class="recs-label" style="margin-bottom:0.8rem">🛡️ Prevention Strategies</div>
+      ${info.prevention.map((p, i) => `<div class="prevention-item">
+        <h4>Measure ${i+1}</h4>
+        <p>${p}</p>
+      </div>`).join('')}`;
+  } else if (info.care_tips && Array.isArray(info.care_tips) && info.care_tips.length > 0) {
+    preventionHTML = `<div class="care-tips">
+      <div class="care-tips-label">✨ Keep It Healthy</div>
+      <ul>${info.care_tips.map(t => `<li>${t}</li>`).join('')}</ul>
+    </div>`;
+  }
+  
+  const preventionContent = document.getElementById('preventionContent');
+  if (preventionContent) preventionContent.innerHTML = preventionHTML || '<p style="color:var(--muted)">No prevention information available.</p>';
+  
+  // ── Health Indicators (Overview Tab) ──
+  const indicators = [
+    { label: 'Confidence', value: conf.toFixed(1) + '%', icon: '📊' },
+    { label: 'Status', value: isHealthy ? 'Healthy' : 'Diseased', icon: '✓' }
+  ];
+  if (info.severity) indicators.push({ label: 'Severity', value: info.severity.split(' ')[0], icon: '⚠️' });
+  if (info.urgency) indicators.push({ label: 'Urgency', value: info.urgency.split(' • ')[0], icon: '⏰' });
+  
+  const healthIndicators = document.getElementById('healthIndicators');
+  if (healthIndicators) {
+    healthIndicators.innerHTML = indicators.map(ind => `<div class="indicator">
+      <div class="indicator-icon">${ind.icon}</div>
+      <div class="indicator-value">${ind.value}</div>
+      <div class="indicator-label">${ind.label}</div>
+    </div>`).join('');
+  }
+  
+  // ── Overview Tab (Diagnosis Box) ──
+  const db = document.getElementById('diagBox');
+  if (db) {
+    db.className = 'diag-box' + (isHealthy ? '' : ' sick');
+    document.getElementById('diagLabel').textContent = isHealthy ? '✅ Plant Status' : '📖 Diagnosis';
+    document.getElementById('diagText').textContent = info.what_is_it || 
+      (isHealthy ? 'Your plant looks healthy — keep up the great care!' : `${data.condition} detected.`);
+  }
+  
+  // ── Confidence ──
+  const confVal = document.getElementById('confVal');
+  if (confVal) confVal.textContent = Math.round(conf);
+  
+  const confFill = document.getElementById('confFill');
+  if (confFill) setTimeout(() => confFill.style.width = Math.round(conf) + '%', 200);
+  
+  // Reset tabs to Details (first visible tab)
+  const tabs = document.querySelectorAll('.tab-content');
+  const btns = document.querySelectorAll('.tab-btn');
+  btns.forEach(btn => btn.classList.remove('active'));
+  tabs.forEach(tab => tab.classList.remove('active'));
+  btns[0].classList.add('active');
+  tabs[0].classList.add('active');
+}
+
+// ── Tab Switching ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const tabName = btn.dataset.tab;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + tabName).classList.add('active');
+  });
+});
+
+// ── Score Animation ──
+function animScore(target) {
+  const circle = document.getElementById('scoreCircle');
+  const numEl = document.getElementById('scoreNum');
+  const circ = 440; // Circumference for r=70
+  let n = 0;
+  const t = setInterval(() => {
+    n = Math.min(n + 1, target);
+    numEl.textContent = n.toString();
+    circle.style.strokeDashoffset = (circ - (circ * n / 100)).toString();
+    if (n >= target) {
+      clearInterval(t);
+      circle.style.stroke = target >= 75 ? '#10b981' : target >= 50 ? '#f59e0b' : '#ef4444';
+    }
+  }, 14);
+}
+
+// ── Show/Hide States ──
+function showEmpty() {
+  document.getElementById('emptyState').style.display = '';
+  hideEl('loadState');
+  document.getElementById('resultContent').classList.remove('show');
+  document.getElementById('resultsPanel').style.alignItems = 'center';
+}
+
+function showLoading() {
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('loadState').classList.add('show');
+  document.getElementById('resultContent').classList.remove('show');
+  document.getElementById('resultsPanel').style.alignItems = 'center';
+  ['ls1','ls2','ls3','ls4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.classList.remove('active','done'); }
+  });
+}
+
+function showError(message) {
+  hideEl('loadState');
+  const panel = document.getElementById('resultsPanel');
+  panel.style.alignItems = 'center';
+  panel.innerHTML = `<div style="text-align:center; color:var(--text)">
+    <div style="font-size:3rem;margin-bottom:1rem">⚠️</div>
+    <div style="background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:1rem;margin-bottom:1rem;color:#f87171">${message}</div>
+    <button class="reset-btn" style="background:var(--lime);color:#060d08!important;border:none" onclick="resetAll()">↩ Try again</button>
+  </div>`;
+}
+
+/* ── Theme Toggle ── */
+function toggleTheme() {
+  const html = document.documentElement;
+  const currentTheme = html.getAttribute('data-theme') || 'dark';
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  html.setAttribute('data-theme', newTheme);
+  localStorage.setItem('plantpal-theme', newTheme);
+  
+  const button = document.getElementById('themeToggle');
+  button.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+}
+
+// Load saved theme on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const savedTheme = localStorage.getItem('plantpal-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  
+  const button = document.getElementById('themeToggle');
+  if (button) {
+    button.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+  }
+});
+
+function hideEl(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.classList.contains('show')) el.classList.remove('show');
+  else el.style.display = 'none';
+}
+
+function resetAll() {
+  file = null;
+  fi.value = '';
+  document.getElementById('prevImg').src = '';
+  document.getElementById('dzInner').style.display = '';
+  document.getElementById('dzPrev').style.display = 'none';
+  analyzeBtn.disabled = true;
+  showEmpty();
+}
+
+function wait(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ── Custom Cursor ──
+const c1 = document.getElementById('c1'), c2 = document.getElementById('c2');
+let mx = 0, my = 0, fx = 0, fy = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX;
+  my = e.clientY;
+  c1.style.left = mx + 'px';
+  c1.style.top = my + 'px';
+});
+(function tick() {
+  fx += (mx - fx) * 0.12;
+  fy += (my - fy) * 0.12;
+  c2.style.left = fx + 'px';
+  c2.style.top = fy + 'px';
+  requestAnimationFrame(tick);
+})();
+
+// ── Nav Scroll ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('stuck', scrollY > 60));
+
+// ── Scroll Reveal ──
+const ro = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting) e.target.classList.add('in');
+}), { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+// ── Translation System ──
+const translations = {
+  en: {
+    'nav.features': 'Features',
+    'nav.how': 'How It Works',
+    'nav.diagnose': 'Diagnose',
+    'hero.title1': 'Know Your',
+    'hero.title2': "Plant's",
+    'hero.title3': 'Health',
+    'hero.subtitle': "Snap a photo of any leaf. PlantPal's machine learning engine detects diseases, scores health, and gives you a personalised care plan — instantly.",
+    'hero.btn1': 'Diagnose My Plant',
+    'hero.btn2': 'See how it works',
+    'hero.stat1': '38+',
+    'hero.stat1_label': 'Diseases Detected',
+    'hero.stat2': '95%',
+    'hero.stat2_label': 'Accuracy Rate',
+    'hero.stat3': '<3s',
+    'hero.stat3_label': 'Avg. Analysis',
+    'features.eyebrow': 'What PlantPal Can Do',
+    'features.title': 'Built for every plant parent',
+    'features.f1_title': 'Disease Detection',
+    'features.f1_desc': 'Our CNN model scans leaf images for fungal, bacterial, and viral infections with clinical-level precision.',
+    'features.f1_tag': 'Image Classification',
+    'features.f2_title': 'Smart Care Tips',
+    'features.f2_desc': 'Get condition-specific guidance — watering schedules, treatments, and fertiliser advice personalised to your plant state.',
+    'features.f2_tag': 'AI Recommendations',
+    'features.f3_title': '14 Plant Species',
+    'features.f3_desc': 'Tomatoes, apples, grapes, corn, potatoes and more — PlantPal recognises every species in the PlantVillage dataset.',
+    'features.f3_tag': 'Multi-Species',
+    'features.f4_title': 'Health Scoring',
+    'features.f4_desc': 'Get a clear health percentage score, confidence metrics, and visual indicators — no jargon, just clarity.',
+    'features.f4_tag': 'Visual Analytics',
+    'how.eyebrow': 'The Process',
+    'how.title': 'Three steps to a healthier plant',
+    'how.step1_title': 'Upload a Leaf Photo',
+    'how.step1_desc': 'Drag & drop or browse your device. Works with any clear photo of a plant leaf.',
+    'how.step2_title': 'ML Model Analyses',
+    'how.step2_desc': 'TensorFlow scans the image, identifies the species, and checks for 38+ known diseases.',
+    'how.step3_title': 'Get Your Report',
+    'how.step3_desc': 'Receive a full health report with diagnosis, health score, and a personalised care plan.',
+    'diagnose.eyebrow': 'Try It Now',
+    'diagnose.title': 'Upload a leaf, get instant answers',
+    'diagnose.dz_title': 'Drop your plant image here',
+    'diagnose.dz_subtitle': 'or browse files from your device',
+    'diagnose.dz_hint': 'JPG, PNG, WEBP — max 10MB',
+    'diagnose.btn': '🔬 Analyse Plant Health',
+    'diagnose.note': '🔒 Images are processed locally and never stored',
+    'results.empty': 'No plant analysed yet',
+    'results.empty_subtitle': 'Upload a leaf photo and hit Analyse Plant Health to see your full report here.',
+    'results.analyzing': 'Analysing your plant…',
+    'results.step1': 'Identifying plant species…',
+    'results.step2': 'Scanning for diseases…',
+    'results.step3': 'Calculating health score…',
+    'results.step4': 'Generating care plan…',
+    'results.health_score': 'Health Score',
+    'results.confidence': 'Confidence',
+    'results.severity': 'Severity',
+    'results.act': 'Act',
+    'results.details': 'Details',
+    'results.treatment': 'Treatment',
+    'results.prevention': 'Prevention',
+    'results.what_is_it': 'What Is It?',
+    'results.full_name': 'Full Name',
+    'results.expert_note': 'Expert Note',
+    'results.treatment_plan': 'Treatment Plan',
+    'results.care_tips': 'Daily Care Tips',
+    'results.fun_fact': 'Did You Know?',
+    'results.low_conf': 'Low Confidence',
+    'results.low_conf_msg': 'This diagnosis has lower confidence. Please verify with a professional or try uploading a clearer photo.',
+    'results.prevention_strategies': 'Prevention Strategies',
+    'results.keep_healthy': 'Keep It Healthy',
+    'results.model_conf': 'Model Confidence',
+    'results.analyze_again': '↩ Analyse another plant',
+    'footer.tagline': 'Smart Plant Health Monitoring',
+    'footer.team': 'Made with 🌱 by TE_A_12 — Karunya Ingale · Yash Jikamade · Swastik Mahajan · Siddesh Koli',
+    'footer.guide': 'Guide: Prof. Snehal Mali',
+    'footer.powered': 'Powered by TensorFlow · FastAPI · Pandas · NumPy'
+  },
+  hi: {
+    'nav.features': 'विशेषताएं',
+    'nav.how': 'कैसे काम करता है',
+    'nav.diagnose': 'निदान',
+    'hero.title1': 'अपने पौधे का',
+    'hero.title2': 'स्वास्थ्य',
+    'hero.title3': 'जानें',
+    'hero.subtitle': 'किसी भी पत्ती की फोटो लें। PlantPal की मशीन लर्निंग इंजन रोगों का पता लगाती है, स्वास्थ्य स्कोर करती है, और तुरंत एक व्यक्तिगत देखभाल योजना देती है।',
+    'hero.btn1': 'मेरा पौधा निदान करें',
+    'hero.btn2': 'देखें कि यह कैसे काम करता है',
+    'hero.stat1': '38+',
+    'hero.stat1_label': 'रोग पता लगाए जाते हैं',
+    'hero.stat2': '95%',
+    'hero.stat2_label': 'सटीकता दर',
+    'hero.stat3': '<3s',
+    'hero.stat3_label': 'औसत विश्लेषण',
+    'features.eyebrow': 'PlantPal क्या कर सकता है',
+    'features.title': 'हर पौधे प्रेमी के लिए बनाया गया',
+    'features.f1_title': 'रोग पहचान',
+    'features.f1_desc': 'हमारा CNN मॉडल पत्ती की छवियों को फंगल, बैक्टीरियल और वायरल संक्रमण के लिए स्कैन करता है।',
+    'features.f1_tag': 'छवि वर्गीकरण',
+    'features.f2_title': 'स्मार्ट देखभाल टिप्स',
+    'features.f2_desc': 'स्थिति-विशिष्ट मार्गदर्शन प्राप्त करें — सिंचाई अनुसूची, उपचार और खाद सलाह।',
+    'features.f2_tag': 'AI सिफारिशें',
+    'features.f3_title': '14 पौधे प्रजातियां',
+    'features.f3_desc': 'टमाटर, सेब, अंगूर, मकई, आलू और अधिक — PlantPal हर प्रजाति को पहचानता है।',
+    'features.f3_tag': 'बहु-प्रजाति',
+    'features.f4_title': 'स्वास्थ्य स्कोरिंग',
+    'features.f4_desc': 'स्पष्ट स्वास्थ्य प्रतिशत स्कोर, आत्मविश्वास मेट्रिक्स, और दृश्य संकेतक प्राप्त करें।',
+    'features.f4_tag': 'दृश्य विश्लेषण',
+    'how.eyebrow': 'प्रक्रिया',
+    'how.title': 'स्वस्थ पौधे के लिए तीन कदम',
+    'how.step1_title': 'पत्ती की फोटो अपलोड करें',
+    'how.step1_desc': 'ड्रैग और ड्रॉप करें या अपने डिवाइस से ब्राउज़ करें।',
+    'how.step2_title': 'ML मॉडल विश्लेषण करता है',
+    'how.step2_desc': 'TensorFlow छवि को स्कैन करता है, प्रजाति की पहचान करता है, और 38+ बीमारियों की जांच करता है।',
+    'how.step3_title': 'अपनी रिपोर्ट प्राप्त करें',
+    'how.step3_desc': 'पूर्ण स्वास्थ्य रिपोर्ट, निदान, और देखभाल योजना प्राप्त करें।',
+    'diagnose.eyebrow': 'अभी आजमाएं',
+    'diagnose.title': 'पत्ती अपलोड करें, तुरंत उत्तर प्राप्त करें',
+    'diagnose.dz_title': 'अपनी पौधे की छवि यहां छोड़ें',
+    'diagnose.dz_subtitle': 'या अपने डिवाइस से फ़ाइलें ब्राउज़ करें',
+    'diagnose.dz_hint': 'JPG, PNG, WEBP — अधिकतम 10MB',
+    'diagnose.btn': '🔬 पौधे के स्वास्थ्य का विश्लेषण करें',
+    'diagnose.note': '🔒 छवियों को स्थानीय रूप से संसाधित किया जाता है',
+    'results.empty': 'अभी कोई पौधा विश्लेषण नहीं हुआ',
+    'results.empty_subtitle': 'अपनी पूर्ण रिपोर्ट देखने के लिए पत्ती की फोटो अपलोड करें।',
+    'results.analyzing': 'आपके पौधे का विश्लेषण किया जा रहा है…',
+    'results.step1': 'पौधे की प्रजाति की पहचान की जा रही है…',
+    'results.step2': 'रोगों की जांच की जा रही है…',
+    'results.step3': 'स्वास्थ्य स्कोर की गणना की जा रही है…',
+    'results.step4': 'देखभाल योजना तैयार की जा रही है…',
+    'results.health_score': 'स्वास्थ्य स्कोर',
+    'results.confidence': 'आत्मविश्वास',
+    'results.severity': 'गंभीरता',
+    'results.act': 'कार्य',
+    'results.details': 'विवरण',
+    'results.treatment': 'उपचार',
+    'results.prevention': 'रोकथाम',
+    'results.what_is_it': 'यह क्या है?',
+    'results.full_name': 'पूरा नाम',
+    'results.expert_note': 'विशेषज्ञ नोट',
+    'results.treatment_plan': 'उपचार योजना',
+    'results.care_tips': 'दैनिक देखभाल टिप्स',
+    'results.fun_fact': 'क्या आप जानते हैं?',
+    'results.low_conf': 'कम आत्मविश्वास',
+    'results.low_conf_msg': 'यह निदान कम आत्मविश्वास है। पेशेवर से सत्यापित करें या स्पष्ट फोटो अपलोड करें।',
+    'results.prevention_strategies': 'रोकथाम रणनीतियां',
+    'results.keep_healthy': 'इसे स्वस्थ रखें',
+    'results.model_conf': 'मॉडल आत्मविश्वास',
+    'results.analyze_again': '↩ दूसरा पौधा विश्लेषण करें',
+    'footer.tagline': 'स्मार्ट पौधा स्वास्थ्य निगरानी',
+    'footer.team': 'TE_A_12 द्वारा 🌱 के साथ बनाया गया',
+    'footer.guide': 'गाइड: प्रोफेसर स्नेहल माली',
+    'footer.powered': 'TensorFlow · FastAPI · Pandas · NumPy द्वारा चलता है'
+  },
+  mr: {
+    'nav.features': 'वैशिष्ट्ये',
+    'nav.how': 'कसे कार्य करते',
+    'nav.diagnose': 'निदान',
+    'hero.title1': 'तुमच्या पौधाचे',
+    'hero.title2': 'आरोग्य',
+    'hero.title3': 'जाणून घ्या',
+    'hero.subtitle': 'कोणत्याही पानाचा फोटो घ्या. PlantPal ची मशीन लर्निंग इंजिन रोगांचा शोध घेते, आरोग्य स्कोर करते आणि तत्क्षणी व्यक्तिगत देखभाल योजना देते.',
+    'hero.btn1': 'माझा पौधा निदान करा',
+    'hero.btn2': 'हे कसे कार्य करते ते पहा',
+    'hero.stat1': '38+',
+    'hero.stat1_label': 'रोग शोधले जाते',
+    'hero.stat2': '95%',
+    'hero.stat2_label': 'अचूकता दर',
+    'hero.stat3': '<3s',
+    'hero.stat3_label': 'सरासरी विश्लेषण',
+    'features.eyebrow': 'PlantPal काय करू शकते',
+    'features.title': 'प्रत्येक पौधा प्रेमीसाठी बनवलेले',
+    'features.f1_title': 'रोग शोध',
+    'features.f1_desc': 'आमचे CNN मॉडेल पानांच्या प्रतिमांचे स्कॅन करते.',
+    'features.f1_tag': 'प्रतिमा वर्गीकरण',
+    'features.f2_title': 'स्मार्ट देखभाल सुचना',
+    'features.f2_desc': 'स्थितीसंबंधित मार्गदर्शन मिळवा — पाणी घालण्याची वेळापत्रक, उपचार आणि खत सल्ला.',
+    'features.f2_tag': 'AI सुचना',
+    'features.f3_title': '14 पौधांच्या प्रजाती',
+    'features.f3_desc': 'टोमॅटो, सेब, द्राक्षे, मक्का, बटाटे आणि आणखी बरेच — PlantPal प्रत्येक प्रजाती ओळखते.',
+    'features.f3_tag': 'बहु-प्रजातीय',
+    'features.f4_title': 'आरोग्य स्कोरिंग',
+    'features.f4_desc': 'स्पष्ट आरोग्य टक्के, आत्मविश्वास मेट्रिक्स आणि दृश्य संकेतक मिळवा.',
+    'features.f4_tag': 'व्हिज्युअल विश्लेषण',
+    'how.eyebrow': 'प्रक्रिया',
+    'how.title': 'निरोगी पौधासाठी तीन पद्धती',
+    'how.step1_title': 'पानाचा फोटो अपलोड करा',
+    'how.step1_desc': 'ड्रॅग आणि ड्रॉप करा किंवा तुमच्या डिव्हाइसमधून फाईल शोधा.',
+    'how.step2_title': 'ML मॉडेल विश्लेषण करते',
+    'how.step2_desc': 'TensorFlow प्रतिमा स्कॅन करते, प्रजाती ओळखते आणि 38+ रोगांची तपासणी करते.',
+    'how.step3_title': 'तुमचा अहवाल मिळवा',
+    'how.step3_desc': 'संपूर्ण आरोग्य अहवाल, निदान आणि देखभाल योजना प्राप्त करा.',
+    'diagnose.eyebrow': 'आताच प्रयत्न करा',
+    'diagnose.title': 'पान अपलोड करा, तत्क्षणी उत्तर मिळवा',
+    'diagnose.dz_title': 'तुमचा पौधा प्रतिमा येथे सोडा',
+    'diagnose.dz_subtitle': 'किंवा तुमच्या डिव्हाइसमधून फाईल शोधा',
+    'diagnose.dz_hint': 'JPG, PNG, WEBP — कमाल 10MB',
+    'diagnose.btn': '🔬 पौधाचे आरोग्य विश्लेषण करा',
+    'diagnose.note': '🔒 प्रतिमा स्थानीयरित्या प्रक्रिया केली जाते',
+    'results.empty': 'अद्याप कोणताही पौधा विश्लेषण केला गेला नाही',
+    'results.empty_subtitle': 'तुमचा संपूर्ण अहवाल पाहण्यासाठी पानाचा फोटो अपलोड करा.',
+    'results.analyzing': 'तुमच्या पौधाचे विश्लेषण केले जात आहे…',
+    'results.step1': 'पौधाची प्रजाती ओळखली जात आहे…',
+    'results.step2': 'रोगांची तपासणी केली जात आहे…',
+    'results.step3': 'आरोग्य स्कोरची गणना केली जात आहे…',
+    'results.step4': 'देखभाल योजना तयार केली जात आहे…',
+    'results.health_score': 'आरोग्य स्कोर',
+    'results.confidence': 'आत्मविश्वास',
+    'results.severity': 'गंभीरता',
+    'results.act': 'कृती',
+    'results.details': 'तपशील',
+    'results.treatment': 'उपचार',
+    'results.prevention': 'प्रतिबंध',
+    'results.what_is_it': 'हे काय आहे?',
+    'results.full_name': 'संपूर्ण नाव',
+    'results.expert_note': 'तज्ञ टीप',
+    'results.treatment_plan': 'उपचार योजना',
+    'results.care_tips': 'दैनिक देखभाल सुचना',
+    'results.fun_fact': 'तुम्हाला माहित आहे का?',
+    'results.low_conf': 'कमी आत्मविश्वास',
+    'results.low_conf_msg': 'हा निदान कमी आत्मविश्वासाचा आहे. व्यावसायिकांकडून सत्यापित करा.',
+    'results.prevention_strategies': 'प्रतिबंध धोरण',
+    'results.keep_healthy': 'हे निरोगी ठेवा',
+    'results.model_conf': 'मॉडेल आत्मविश्वास',
+    'results.analyze_again': '↩ दुसरा पौधा विश्लेषण करा',
+    'footer.tagline': 'स्मार्ट पौधा आरोग्य निगरानी',
+    'footer.team': 'TE_A_12 द्वारा 🌱 सह बनवलेले',
+    'footer.guide': 'मार्गदर्शक: प्रो. स्नेहल माळी',
+    'footer.powered': 'TensorFlow · FastAPI · Pandas · NumPy द्वारे चालवलेले'
+  }
+};
+
+let currentLanguage = localStorage.getItem('plantpal-lang') || 'en';
+
+function setLanguage(lang) {
+  currentLanguage = lang;
+  localStorage.setItem('plantpal-lang', lang);
+  document.getElementById('langSelect').value = lang;
+  applyTranslations();
+}
+
+function t(key) {
+  return translations[currentLanguage]?.[key] || translations['en'][key] || key;
+}
+
+function applyTranslations() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const text = t(key);
+    if (el.tagName === 'INPUT' || el.tagName === 'BUTTON') {
+      el.placeholder = text;
+    } else if (el.hasChildNodes() && el.querySelector('[data-i18n]')) {
+      // Skip if it has nested i18n elements
+    } else {
+      el.textContent = text;
+    }
+  });
+}
+
+// Load saved language on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const savedLang = localStorage.getItem('plantpal-lang') || 'en';
+  document.getElementById('langSelect').value = savedLang;
+  currentLanguage = savedLang;
+  applyTranslations();
+});
+</script>
