@@ -10,14 +10,14 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 from server.model_config import (
-    BATCH_SIZE, IMAGE_SIZE, SEED, VALIDATION_SPLIT, 
+    BATCH_SIZE, IMAGE_SIZE, SEED,
     ALL_CLASSES, MODEL_PATHS
 )
 
 def evaluate():
     training_model_list = ALL_CLASSES
-    model_path = MODEL_PATHS["plantpal"]
-    model_name = "plantpal_model"
+    model_path = MODEL_PATHS["vgg16_model"]
+    model_name = "vgg16_model"
     
     ROOT = Path(__file__).resolve().parent.parent
     dataset_path = str(ROOT / "data" / "plantvillage_dataset" / "color")

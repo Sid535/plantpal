@@ -2,24 +2,7 @@
 // ─────────────────────────────────────────────────────────────
 // Config
 // ─────────────────────────────────────────────────────────────
-const API_URL = 'http://localhost:8000/analyze';
-// ── Cursor ───────────────────────────────────────────────────
-const c1 = document.getElementById('c1');
-const c2 = document.getElementById('c2');
-let mx = 0, my = 0, fx = 0, fy = 0;
-document.addEventListener('mousemove', (e) => {
-    mx = e.clientX;
-    my = e.clientY;
-    c1.style.left = mx + 'px';
-    c1.style.top = my + 'px';
-});
-(function tick() {
-    fx += (mx - fx) * 0.12;
-    fy += (my - fy) * 0.12;
-    c2.style.left = fx + 'px';
-    c2.style.top = fy + 'px';
-    requestAnimationFrame(tick);
-})();
+const API_URL = 'http://127.0.0.1:8000/analyze';
 // ── Nav scroll effect ─────────────────────────────────────────
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => nav.classList.toggle('stuck', window.scrollY > 60));

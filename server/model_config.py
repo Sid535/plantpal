@@ -124,5 +124,7 @@ PLANT_CONFIG = {
 }
 
 MODEL_PATHS = {
-    "plantpal": "server/models/plantpal_model.keras"
+    "plantpal": "server/models/plantpal_model.keras",
+    "custom_cnn": "server/models/custom_cnn.keras",
+    "vgg16_model": "server/models/vgg16_model.keras"
 }

@@ -157,7 +157,7 @@ h1 .ghost { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.18); 
 .upload-panel { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
 .dropzone { border: 2px dashed rgba(181,242,61,.25); border-radius: 16px; padding: 3.5rem 2rem; text-align: center; position: relative; transition: all .3s; background: rgba(181,242,61,.05); }
 .dropzone:hover, .dropzone.over { border-color: var(--lime); background: var(--lime-dim); }
-.dropzone input { position: absolute; inset: 0; opacity: 0; cursor: none; }
+.dropzone input { position: absolute; inset: 0; opacity: 0; }
 .dz-ico { font-size: 3rem; margin-bottom: 1rem; display: block; transition: transform .3s; }
 .dropzone:hover .dz-ico { transform: scale(1.1) rotate(-5deg); }
 .dz-h { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: .4rem; }
@@ -240,7 +240,7 @@ h1 .ghost { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.18); 
 .conf-fill { height: 100%; background: linear-gradient(90deg, var(--lime), var(--mint)); border-radius: 4px; width: 0; transition: width 1.2s ease; }
 .conf-val { font-weight: 700; color: var(--lime); }
 .low-conf-warn { background: rgba(251,191,36,.08); border: 1px solid rgba(251,191,36,.2); border-radius: 10px; padding: .7rem 1rem; font-size: .8rem; color: var(--amber); font-weight: 600; }
-.reset-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: .55rem 1.2rem; border-radius: 8px; font-size: .8rem; font-weight: 600; cursor: none; transition: all .2s; align-self: flex-start; }
+.reset-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: .55rem 1.2rem; border-radius: 8px; font-size: .8rem; font-weight: 600; transition: all .2s; align-self: flex-start; }
 .reset-btn:hover { border-color: rgba(181,242,61,.3); color: var(--lime); }
 .error-box { background: rgba(248,113,113,.08); border: 1px solid rgba(248,113,113,.2); border-radius: 10px; padding: .8rem 1rem; font-size: .82rem; color: var(--red); font-weight: 600; text-align: center; }
 
