@@ -83,7 +83,8 @@ h1 { font-family: 'Syne', sans-serif; font-size: clamp(3.8rem, 5.5vw, 6rem); fon
 h1 .accent { color: var(--lime); }
 h1 .ghost { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,.18); }
 :root[data-theme="light"] h1 .ghost {
-  -webkit-text-stroke: 1px rgba(44, 62, 48, 0.25); 
+  -webkit-text-stroke: 1px rgba(44, 62, 48, 0.25);
+  color: rgba(44, 62, 48, 0.07); /* subtle fill instead of transparent */
 }
 .hero-p { color: var(--muted2); font-size: 1.05rem; line-height: 1.8; font-weight: 400; max-width: 450px; margin-bottom: 2.8rem; }
 .btns { display: flex; gap: 1rem; align-items: center; margin-bottom: 4rem; }
