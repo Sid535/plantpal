@@ -1,0 +1,91 @@
+{
+  "nav": {
+    "features": "Features",
+    "how": "How It Works",
+    "diagnose": "Diagnose"
+  },
+  "hero": {
+    "title1": "Know Your",
+    "title2": "Plant's",
+    "title3": "Health",
+    "subtitle": "Snap a photo of any leaf. PlantPal's machine learning engine detects diseases, scores health, and gives you a personalised care plan — instantly.",
+    "btn1": "Diagnose My Plant",
+    "btn2": "See how it works",
+    "stat1": "38+",
+    "stat1_label": "Diseases Detected",
+    "stat2": "95%",
+    "stat2_label": "Accuracy Rate",
+    "stat3": "<3s",
+    "stat3_label": "Avg. Analysis"
+  },
+  "features": {
+    "eyebrow": "What PlantPal Can Do",
+    "title": "Built for every plant parent",
+    "f1_title": "Disease Detection",
+    "f1_desc": "Our CNN model scans leaf images for fungal, bacterial, and viral infections with clinical-level precision.",
+    "f1_tag": "Image Classification",
+    "f2_title": "Smart Care Tips",
+    "f2_desc": "Get condition-specific guidance — watering schedules, treatments, and fertiliser advice personalised to your plant's state.",
+    "f2_tag": "AI Recommendations",
+    "f3_title": "14 Plant Species",
+    "f3_desc": "Tomatoes, apples, grapes, corn, potatoes and more — PlantPal recognises every species in the PlantVillage dataset.",
+    "f3_tag": "Multi-Species",
+    "f4_title": "Health Scoring",
+    "f4_desc": "Get a clear health percentage score, confidence metrics, and visual indicators — no jargon, just clarity.",
+    "f4_tag": "Visual Analytics"
+  },
+  "how": {
+    "eyebrow": "The Process",
+    "title": "Three steps to a healthier plant",
+    "step1_title": "Upload a Leaf Photo",
+    "step1_desc": "Drag & drop or browse your device. Works with any clear photo of a plant leaf.",
+    "step2_title": "ML Model Analyses",
+    "step2_desc": "TensorFlow scans the image, identifies the species, and checks for 38+ known diseases.",
+    "step3_title": "Get Your Report",
+    "step3_desc": "Receive a full health report with diagnosis, health score, and a personalised care plan."
+  },
+  "diagnose": {
+    "eyebrow": "Try It Now",
+    "title": "Upload a leaf, get instant answers",
+    "dz_title": "Drop your plant image here",
+    "dz_subtitle": "or browse files from your device",
+    "dz_hint": "JPG, PNG, WEBP — max 10MB",
+    "btn": "🔬 Analyse Plant Health",
+    "note": "🔒 Images are processed locally and never stored"
+  },
+  "results": {
+    "empty": "No plant analysed yet",
+    "empty_subtitle": "Upload a leaf photo and hit Analyse Plant Health to see your full report here.",
+    "analyzing": "Analysing your plant…",
+    "step1": "Identifying plant species…",
+    "step2": "Scanning for diseases…",
+    "step3": "Calculating health score…",
+    "step4": "Generating care plan…",
+    "health_score": "Health Score",
+    "confidence": "Confidence",
+    "severity": "Severity",
+    "act": "Act",
+    "details": "🔍 Details",
+    "treatment": "💊 Treatment",
+    "prevention": "🛡️ Prevention",
+    "what_is_it": "🔍 What Is It?",
+    "full_name": "📝 Full Name",
+    "expert_note": "👨‍🔬 Expert Note",
+    "treatment_plan": "🔧 Treatment Plan",
+    "care_tips": "💡 Daily Care Tips",
+    "did_you_know": "🌟 Did You Know?",
+    "prevention_strategies": "🛡️ Prevention Strategies",
+    "keep_it_healthy": "✨ Keep It Healthy",
+    "low_confidence": "⚠️ Low Confidence",
+    "low_confidence_msg": "This diagnosis has lower confidence. Please verify with a professional or try uploading a clearer photo.",
+    "model_confidence": "Model Confidence",
+    "analyze_another": "↩ Analyse another plant",
+    "try_again": "↩ Try again"
+  },
+  "footer": {
+    "tagline": "Smart Plant Health Monitoring",
+    "team": "Made with 🌱 by TE_A_12 — Karunya Ingale · Yash Jikamade · Swastik Mahajan · Siddesh Koli",
+    "guide": "Guide: Prof. Snehal Mali",
+    "powered": "Powered by TensorFlow · FastAPI · Pandas · NumPy"
+  }
+}

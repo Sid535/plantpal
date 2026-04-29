@@ -9,6 +9,7 @@ from functools import lru_cache
 
 from server.model_config import IMAGE_SIZE, ALL_CLASSES, MODEL_PATHS
 from server.treatments import PLANT_INFO
+from server.translations import get_translated_info
 
 MODEL_PATH = MODEL_PATHS["plantpal"]
 
@@ -17,9 +18,14 @@ def load_model(path):
     print(f"\n--- Loading {path} from Hard Drive into RAM ---")
     return tf.keras.models.load_model(path)
 
-def analyze_plant_image(image_file):
+def analyze_plant_image(image_file, language: str = "en"):
     if image_file is None:
         return None
+    
+    # Validate language
+    valid_langs = ["en", "hi", "mr"]
+    if language not in valid_langs:
+        language = "en"
         
     model = load_model(MODEL_PATH)
         
@@ -38,13 +44,18 @@ def analyze_plant_image(image_file):
     condition = parts[1].replace("_", " ").strip() if len(parts) > 1 else "Unknown"
     confidence = float(np.max(predictions[0])) * 100
     
-    # Grab the full dictionary for this plant
-    info = PLANT_INFO.get(full_label, {})
+    # Get translated info based on language
+    translated_info = get_translated_info(full_label, language)
+    
+    # Fallback to English PLANT_INFO if translation not available
+    if not translated_info:
+        translated_info = PLANT_INFO.get(full_label, {})
 
     return {
         "plant_name": plant_name,
         "condition": condition,
         "confidence": confidence,
         "low_confidence": confidence < 70,
-        "info": info  # Pass the entire dictionary to the frontend!
+        "info": translated_info,  # Now contains translated disease info
+        "language": language  # Include language in response for verification
     }
