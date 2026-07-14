@@ -1,5 +1,9 @@
+import os
+
 from fastapi import FastAPI, UploadFile, File, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from pydantic import BaseModel
 import uvicorn
 from dotenv import load_dotenv
@@ -14,18 +18,27 @@ app = FastAPI(title="PlantPal API")
 # This allows your HTML frontend to talk to this Python backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # In production, you'd restrict this to your actual domain
+    allow_origins=["*"],  # In production, you'd restrict this to your actual domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+STATIC_DIR = os.path.join(os.path.dirname(__file__), "client")
+
+
+@app.get("/")
+async def serve_index():
+    """Serve the frontend entry point."""
+    return FileResponse(os.path.join(STATIC_DIR, "index.html"))
+
+
 @app.post("/analyze")
 async def analyze_endpoint(file: UploadFile = File(...), lang: str = Query("en")):
     """
-    This endpoint receives an image from the frontend, 
+    This endpoint receives an image from the frontend,
     passes it to your analyzer, and returns the JSON dictionary.
-    
+
     Query Parameters:
     - lang: Language code (en, hi, mr). Defaults to 'en'.
     """
@@ -34,15 +47,15 @@ async def analyze_endpoint(file: UploadFile = File(...), lang: str = Query("en")
         valid_langs = ["en", "hi", "mr"]
         if lang not in valid_langs:
             lang = "en"
-        
+
         # FastAPI gives us a file-like object that PIL (inside your analyzer) can read directly
         results = analyze_plant_image(file.file, language=lang)
-        
+
         if results:
             return {"success": True, "data": results}
         else:
             return {"success": False, "error": "Could not process image."}
-            
+
     except Exception as e:
         return {"success": False, "error": str(e)}
 
@@ -68,6 +81,13 @@ async def translate_endpoint(payload: TranslateRequest):
         return {"success": True, "translated": translated[0]}
     except Exception as e:
         return {"success": False, "error": str(e)}
+
+
+# Serve all other static assets (CSS, JS, images …) — must be mounted
+# after the API routes above, so /analyze and /translate take priority
+# over the catch-all static mount.
+app.mount("/", StaticFiles(directory=STATIC_DIR), name="client")
+
 
 if __name__ == "__main__":
     # Runs the server on port 8000

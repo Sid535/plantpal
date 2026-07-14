@@ -1,8 +1,81 @@
 "use strict";
+let translations = {};
+let currentLanguage = 'en';
+async function loadTranslations() {
+    try {
+        const response = await Promise.all([
+            fetch('translations/en.json'),
+            fetch('translations/hi.json'),
+            fetch('translations/mr.json'),
+        ]);
+        const [enData, hiData, mrData] = await Promise.all(response.map(r => r.json()));
+        translations = {
+            'en': enData,
+            'hi': hiData,
+            'mr': mrData,
+        };
+        // Load saved language preference or default to 'en'
+        const savedLang = localStorage.getItem('plantpal-language') || 'en';
+        setLanguage(savedLang);
+    }
+    catch (err) {
+        console.error('Failed to load translations:', err);
+    }
+}
+function t(key, defaultValue) {
+    const keys = key.split('.');
+    let value = translations[currentLanguage] || translations['en'];
+    for (const k of keys) {
+        value = value?.[k];
+        if (!value)
+            return defaultValue || key;
+    }
+    return typeof value === 'string' ? value : (defaultValue || key);
+}
+function setLanguage(lang) {
+    if (!translations[lang]) {
+        console.warn(`Language ${lang} not available, defaulting to English`);
+        lang = 'en';
+    }
+    currentLanguage = lang;
+    localStorage.setItem('plantpal-language', lang);
+    // Update language selector
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect)
+        langSelect.value = lang;
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    // Translate all elements with data-i18n attribute
+    translateDOM();
+}
+function translateDOM() {
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.getAttribute('data-i18n');
+        if (key) {
+            const translatedText = t(key);
+            // Check if element has child elements (like button with span + svg)
+            const textNode = Array.from(el.childNodes).find(node => node.nodeType === Node.TEXT_NODE ||
+                (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'SPAN'));
+            if (textNode && textNode.nodeType === Node.TEXT_NODE) {
+                textNode.textContent = translatedText;
+            }
+            else if (el.tagName === 'BUTTON' && el.querySelector('span')) {
+                // For buttons with child spans (like analyze button)
+                const span = el.querySelector('span');
+                if (span)
+                    span.textContent = translatedText;
+            }
+            else {
+                el.textContent = translatedText;
+            }
+        }
+    });
+}
 // ─────────────────────────────────────────────────────────────
 // Config
 // ─────────────────────────────────────────────────────────────
-const API_URL = 'http://localhost:8000/analyze';
+const API_URL = '/analyze';
 // ── Cursor ───────────────────────────────────────────────────
 const c1 = document.getElementById('c1');
 const c2 = document.getElementById('c2');
@@ -73,15 +146,28 @@ async function runAnalysis() {
     if (!selectedFile)
         return;
     analyzeBtn.disabled = true;
-    document.getElementById('btnTxt').textContent = 'Analysing…';
+    document.getElementById('btnTxt').textContent = t('results.analyzing');
     document.getElementById('btnSpin').style.display = 'block';
     showLoading();
     const stepIds = ['ls1', 'ls2', 'ls3', 'ls4'];
+    const stepKeys = ['results.step1', 'results.step2', 'results.step3', 'results.step4'];
     for (let i = 0; i < stepIds.length; i++) {
         await wait(700);
         if (i > 0)
             document.getElementById(stepIds[i - 1]).classList.replace('active', 'done');
-        document.getElementById(stepIds[i]).classList.add('active');
+        const stepEl = document.getElementById(stepIds[i]);
+        stepEl.classList.add('active');
+        // Update step text
+        const textEl = stepEl.lastChild;
+        if (textEl && textEl.nodeType === Node.TEXT_NODE) {
+            textEl.textContent = t(stepKeys[i]);
+        }
+        else {
+            const spans = stepEl.querySelectorAll('span');
+            if (spans.length > 0) {
+                spans[0].textContent = t(stepKeys[i]);
+            }
+        }
     }
     await wait(500);
     document.getElementById('ls4').classList.replace('active', 'done');
@@ -101,7 +187,7 @@ async function runAnalysis() {
         showError(err.message);
     }
     analyzeBtn.disabled = false;
-    document.getElementById('btnTxt').textContent = 'Analyse Plant Health';
+    document.getElementById('btnTxt').textContent = t('diagnose.btn');
     document.getElementById('btnSpin').style.display = 'none';
 }
 // ── Map FastAPI response → display format ─────────────────────
@@ -313,3 +399,19 @@ function resetAll() {
 function wait(ms) {
     return new Promise(r => setTimeout(r, ms));
 }
+// ── Initialize on Page Load ────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+    // Load translations
+    await loadTranslations();
+    // Set up language selector
+    const langSelect = document.getElementById('langSelect');
+    if (langSelect) {
+        langSelect.addEventListener('change', (e) => {
+            const target = e.target;
+            setLanguage(target.value);
+        });
+    }
+});
+// Export functions for HTML onclick handlers
+window.setLanguage = setLanguage;
+window.resetAll = resetAll;

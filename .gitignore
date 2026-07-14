@@ -12,3 +12,4 @@ wheels/
 # Datasets
 data/plantvillage_dataset
 .env
+node_modules/

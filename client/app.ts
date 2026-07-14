@@ -137,7 +137,7 @@ interface MappedData {
 // ─────────────────────────────────────────────────────────────
 // Config
 // ─────────────────────────────────────────────────────────────
-const API_URL: string = 'http://localhost:8000/analyze';
+const API_URL: string = '/analyze';
 
 // ── Cursor ───────────────────────────────────────────────────
 const c1 = document.getElementById('c1') as HTMLElement;
@@ -511,5 +511,4 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Export functions for HTML onclick handlers
 (window as any).setLanguage = setLanguage;
-(window as any).toggleTheme = toggleTheme;
 (window as any).resetAll = resetAll;
