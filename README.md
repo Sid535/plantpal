@@ -1,3 +1,12 @@
+---
+title: Plantpal
+emoji: 🌿
+colorFrom: green
+colorTo: green
+sdk: docker
+pinned: false
+---
+
 # PlantPal
 
 An AI-powered plant disease diagnosis app. Upload a photo of a plant leaf, and PlantPal identifies the species and any visible disease, then returns a diagnosis — severity, urgency, treatment, and prevention — in **English, Hindi, or Marathi**.
