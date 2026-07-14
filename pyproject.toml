@@ -8,6 +8,7 @@ dependencies = [
     "fastapi>=0.135.2",
     "httpx>=0.28.1",
     "matplotlib>=3.10.8",
+    "opencv-python-headless>=5.0.0.93",
     "pandas>=2.3.3",
     "path>=17.1.1",
     "pillow>=12.1.0",
@@ -18,7 +19,6 @@ dependencies = [
     "streamlit>=1.54.0",
     "tensorflow>=2.20.0",
     "uvicorn>=0.42.0",
-    "opencv-python>=4.9.0",
 ]
 
 [tool.setuptools]
