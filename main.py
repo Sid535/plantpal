@@ -1,57 +1,74 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from pydantic import BaseModel
 import uvicorn
-import os
+from dotenv import load_dotenv
 
 from server.analyzer import analyze_plant_image
+from server.langbly_client import translate_texts
+
+load_dotenv()
 
 app = FastAPI(title="PlantPal API")
 
-# CORS — keep this for dev convenience if you ever test from a different origin
+# This allows your HTML frontend to talk to this Python backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"], # In production, you'd restrict this to your actual domain
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ── Serve the frontend ──────────────────────────────────────────────────────
-# Place index.html / styles.css / app.js in a folder called "static"
-# alongside this main.py file.  Then visit http://localhost:8000
-STATIC_DIR = os.path.join(os.path.dirname(__file__), "client")
-
-@app.get("/")
-async def serve_index():
-    """Serve the frontend entry point."""
-    return FileResponse(os.path.join(STATIC_DIR, "index.html"))
-
-# ───────────────────────────────────────────────────────────────────────────
-
 @app.post("/analyze")
-async def analyze_endpoint(file: UploadFile = File(...)):
+async def analyze_endpoint(file: UploadFile = File(...), lang: str = Query("en")):
     """
-    Receives an image from the frontend, passes it to the analyzer,
-    and returns the result as JSON.
+    This endpoint receives an image from the frontend, 
+    passes it to your analyzer, and returns the JSON dictionary.
+    
+    Query Parameters:
+    - lang: Language code (en, hi, mr). Defaults to 'en'.
     """
     try:
-        if file.content_type not in ["image/jpeg", "image/png", "image/webp"]:
-            return {"success": False, "error": "Invalid file type. Use JPG, PNG or WEBP."}
-
-        results = analyze_plant_image(file.file)
-
+        # Validate language
+        valid_langs = ["en", "hi", "mr"]
+        if lang not in valid_langs:
+            lang = "en"
+        
+        # FastAPI gives us a file-like object that PIL (inside your analyzer) can read directly
+        results = analyze_plant_image(file.file, language=lang)
+        
         if results:
             return {"success": True, "data": results}
         else:
             return {"success": False, "error": "Could not process image."}
-
+            
     except Exception as e:
         return {"success": False, "error": str(e)}
 
-# Serve all other static assets (CSS, JS, images …)
-app.mount("/", StaticFiles(directory=STATIC_DIR), name="client")
+
+class TranslateRequest(BaseModel):
+    text: str | list[str]
+    target: str
+    source: str | None = "en"
+
+
+@app.post("/translate")
+async def translate_endpoint(payload: TranslateRequest):
+    """Translate text using Langbly while keeping the API key server-side."""
+    try:
+        texts = payload.text if isinstance(payload.text, list) else [payload.text]
+        translated = translate_texts(texts, target=payload.target, source=payload.source)
+        if not translated:
+            return {"success": False, "error": "Translation unavailable"}
+
+        if isinstance(payload.text, list):
+            return {"success": True, "translations": translated}
+
+        return {"success": True, "translated": translated[0]}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
 
 if __name__ == "__main__":
+    # Runs the server on port 8000
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
